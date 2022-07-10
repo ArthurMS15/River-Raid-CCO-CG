@@ -20,7 +20,7 @@ float ty = 0;
 float yStep = 20;
 /*TRANSLAÇÕES PARA A NAVE*/
 float tcontrol = 0;
-int main(int argc, char** argv){
+int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); /*MULTISAMPLE*/
 	glutInitWindowSize(janela_largura, janela_altura);
@@ -35,12 +35,12 @@ int main(int argc, char** argv){
 }
 
 void anima(int valor) {
-	if (ty < -700) {
+	if (ty < -3700) {
 		ty = ty;
-	} else {
+	}
+	else {
 		ty -= yStep;
-	} 
-	int aux = rand() % 3;
+	}
 	glutPostRedisplay();
 	glutTimerFunc(100, anima, 1);
 }
@@ -55,7 +55,6 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 	}
 }
-
 
 void rua() {
 	/*rua*/
@@ -168,7 +167,7 @@ void baixoinfo() {
 	glEnd();
 }
 
-void lvl1map(){
+void lvlmap() {
 	rua();
 	/*primeira parte lago*/
 	glBegin(GL_QUADS);
@@ -188,20 +187,12 @@ void lvl1map(){
 	glVertex2f(150, -100);
 	glEnd();
 
-	/*bordas lago*/
-	glBegin(GL_TRIANGLES);
-	glColor3f(0.0f, 1.0f, 0.5f);
-	glVertex2f(-100, -100);
-	glVertex2f(-150, -100);
-	glVertex2f(-150, -70);
-	glEnd();
-
-	/*bordas lago*/
-	glBegin(GL_TRIANGLES);
-	glColor3f(0.0f, 1.0f, 0.5f);
-	glVertex2f(100, -100);
-	glVertex2f(150, -100);
-	glVertex2f(150, -70);
+	glBegin(GL_QUADS);
+	glColor3f(0.0f, 0.0f, 0.8f);
+	glVertex2f(-200, 1000);
+	glVertex2f(-200, 4000);
+	glVertex2f(200, 4000);
+	glVertex2f(200, 1000);
 	glEnd();
 }
 
@@ -241,7 +232,7 @@ void aviao() {
 	glVertex2f(-30, 0);
 	glVertex2f(-40, -30);
 	glEnd();
-	
+
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f, 1.0f, 0.0f);
 	glVertex2f(-10, -40);
@@ -254,13 +245,6 @@ void aviao() {
 	glVertex2f(10, 0);
 	glVertex2f(30, 0);
 	glVertex2f(40, -30);
-	glEnd();
-
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(10, -40);
-	glVertex2f(20, 0);
-	glVertex2f(0, 0);
 	glEnd();
 }
 
@@ -284,10 +268,19 @@ void drawText(const char* text, int length, int x, int y) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void titulo(int x, int y) {
+	std::string text;
+	text = "RIVER RAID";
+	drawText(text.data(), text.size(), 350, 400);
+	std::string text2;
+	text2 = "Aperte ENTER para comecar ou ESC para sair";
+	drawText(text2.data(), text2.size(), 150, 300);
+}
+
 void desenhar() {
 	glPushMatrix();
-	glTranslatef(0, ty, 0); 
-	lvl1map();
+	glTranslatef(0, ty, 0);
+	lvlmap();
 	/*melhorar o level, tornar spawn de casas aleatório, e adicionar sprites de obstaculos*/
 	glPopMatrix();
 	/*movimentar avião e atirar*/
@@ -298,17 +291,18 @@ void desenhar() {
 	baixoinfo();
 }
 
-void display(){
+void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glClearColor(0.0f, 1.0f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glTranslatef(janela_largura / 2, janela_altura / 2, 0);
 	desenhar();
+	titulo(-400, 300);
 	glFlush();
 }
 
-void tela(GLsizei w, GLsizei h){
+void tela(GLsizei w, GLsizei h) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0, janela_largura, 0, janela_altura);
