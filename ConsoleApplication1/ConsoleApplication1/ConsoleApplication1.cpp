@@ -29,30 +29,35 @@ int main(int argc, char** argv) {
 	glutReshapeFunc(tela);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(&keyboard);
-	glutTimerFunc(100, anima, 1);
+	glutTimerFunc(20, anima, 1);
 	glutMainLoop();
 	return(0);
 }
 
 void anima(int valor) {
-	if (ty < -3700) {
+	if (ty < -1700) {
 		ty = ty;
 	}
 	else {
 		ty -= yStep;
 	}
 	glutPostRedisplay();
-	glutTimerFunc(100, anima, 1);
+	glutTimerFunc(20, anima, 1);
 }
 
 void keyboard(unsigned char key, int x, int y) {
-	switch (key)
-	{
-	case '\x1B':
-		exit(EXIT_SUCCESS);
-		break;
-	case '\x0D':
-		break;
+	switch (key){
+		case '\x1B':
+			exit(EXIT_SUCCESS);
+			break;
+		case '\x0D':
+			break;
+	}
+	if (key == 'd'){
+	}
+	if (key == 'a'){
+	}
+	if (key == ' '){
 	}
 }
 
@@ -190,8 +195,8 @@ void lvlmap() {
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.8f);
 	glVertex2f(-200, 1000);
-	glVertex2f(-200, 4000);
-	glVertex2f(200, 4000);
+	glVertex2f(-200, 2000);
+	glVertex2f(200, 2000);
 	glVertex2f(200, 1000);
 	glEnd();
 }
