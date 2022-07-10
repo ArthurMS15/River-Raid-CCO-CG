@@ -45,14 +45,15 @@ void anima(int valor) {
 	glutTimerFunc(100, anima, 1);
 }
 
-void keyboard(unsigned char tecla, int x, int y){
-	if (tcontrol < 120 && tecla == 'd') {
-		tcontrol = tcontrol + 10;
+void keyboard(unsigned char key, int x, int y) {
+	switch (key)
+	{
+	case '\x1B':
+		exit(EXIT_SUCCESS);
+		break;
+	case '\x0D':
+		break;
 	}
-	if (tcontrol> -120 && tecla == 'a') {
-		tcontrol = tcontrol - 10;
-	}
-	glutPostRedisplay();
 }
 
 
