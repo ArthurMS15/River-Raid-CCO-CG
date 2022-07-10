@@ -9,6 +9,16 @@
 #define janela_altura 700
 #define janela_largura 700
 /*PROTOTIPAÇÃO INCOMPLETA*/
+typedef struct {
+	double x;
+	double xaux;
+	double y;
+	double yaux;
+	bool show = true;
+}sItem;
+
+sItem house[10];
+
 void display(void);
 void tela(GLsizei w, GLsizei h);
 void keyboard(unsigned char tecla, int x, int y);
