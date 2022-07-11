@@ -21,6 +21,7 @@ int auxstart = 0;
 
 Item casa[10];
 Item posaviao;
+Item comb[10];
 /*startar as houses*/
 
 void display(void);
@@ -33,6 +34,9 @@ void inicializar(Item posaviao);
 /*TRANSLAÇÕES PARA A CAMERA*/
 float ty = 0;
 float yStep = 20;
+std::string text = "RIVER RAID";
+std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
+
 /*TRANSLAÇÕES PARA A NAVE*/
 float tcontrol = 0;
 int main(int argc, char** argv) {
@@ -69,16 +73,26 @@ void anima(int valor) {
 void inicializar(Item item) {
 	casa[0].x = -310;
 	casa[0].y = -50;
+	comb[0].x = 160;
+	comb[0].y = 0;
 	for (int i = 1; i < 10; i++) {
 		int aux = i - 1;
 		if (i % 2 == 0) {
 			casa[i].x = 270;
 			casa[i].y = (casa[aux].y) + 450;
+			comb[i].x = (rand() % 180) * -1;
+			comb[i].y = (comb[aux].y) + 500;
+
 		}
 		else {
 			casa[i].x = -310;
 			casa[i].y = (casa[aux].y) + 450;
+			comb[i].x = (rand() % 180);
+			comb[i].y = (comb[aux].y) + 500;
 		}
+	}
+	for (int i = 0; i < 10; i++) {
+		comb[i].show = true;
 	}
 	if (item.y > 1600) {
 		posaviao.y = 1700;
@@ -103,6 +117,10 @@ void keyboard(unsigned char key, int x, int y) {
 		posaviao.yaux = 25;
 		auxstart = 1;
 		inicializar(posaviao);
+		text = " ";
+		drawText(text.data(), text.size(), 350, 400);
+		text2 = " ";
+		drawText(text2.data(), text2.size(), 150, 300);
 		break;
 	}
 	if (key == 'd') {
@@ -174,6 +192,49 @@ void rua() {
 	glEnd();
 }
 
+void combustivel(Item item) {
+	int x = item.x;
+	int y = item.y;
+	int xaux = item.xaux;
+	int yaux = item.yaux;
+	glScalef(1, 1, 1);
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 0);
+	glVertex2f(x - xaux, y - yaux);
+	glVertex2f((x + xaux), y - yaux);
+	glVertex2f((x + xaux), (y - yaux + 10));
+	glVertex2f(x - xaux, (y - yaux + 10));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - xaux, (y - yaux + 10));
+	glVertex2f((x + xaux), (y - yaux + 10));
+	glVertex2f((x + xaux), (y - yaux + 20));
+	glVertex2f(x - xaux, (y - yaux + 20));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 0);
+	glVertex2f(x - xaux, (y - yaux + 20));
+	glVertex2f((x + xaux), (y - yaux + 20));
+	glVertex2f((x + xaux), (y - yaux + 30));
+	glVertex2f(x - xaux, (y - yaux + 30));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - xaux, (y - yaux + 30));
+	glVertex2f((x + xaux), (y - yaux + 30));
+	glVertex2f((x + xaux), (y + yaux - 5));
+	glVertex2f(x - xaux, (y + yaux - 5));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f((x - xaux + 20), y + yaux - 5);
+	glVertex2f((x - xaux + 20), (y + yaux));
+	glVertex2f((x - xaux + 5), (y + yaux));
+	glVertex2f((x - xaux + 5), (y + yaux - 5));
+	glEnd();
+}
+
 void casaarvore(int x, int y) {
 	/*casa*/
 	glBegin(GL_QUADS);
@@ -218,7 +279,7 @@ void baixoinfo() {
 	glEnd();
 }
 
-void lvlmap() {
+void lago() {
 	/*primeira parte lago*/
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.8f);
@@ -229,24 +290,26 @@ void lvlmap() {
 	glEnd();
 
 	/*segunda parte lago*/
-	glBegin(GL_QUADS);
-	glColor3f(0.0f, 0.0f, 0.8f);
-	glVertex2f(-150, -100);
-	glVertex2f(-150, 1000);
-	glVertex2f(150, 1000);
-	glVertex2f(150, -100);
-	glEnd();
 
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.8f);
-	glVertex2f(-200, 1000);
+	glVertex2f(-200, -100);
 	glVertex2f(-200, 4000);
 	glVertex2f(200, 4000);
-	glVertex2f(200, 1000);
+	glVertex2f(200, -100);
 	glEnd();
+}
+
+void lvlmap() {
+	lago();
 	rua();
 	for (int i = 0; i < 10; i++) {
 		casaarvore(casa[i].x, casa[i].y);
+	}
+	for (int i = 0; i < 10; i++) {
+		if (comb[i].show) {
+			combustivel(comb[i]);
+		}
 	}
 }
 
@@ -310,11 +373,7 @@ void drawText(const char* text, int length, int x, int y) {
 }
 
 void titulo(int x, int y) {
-	std::string text;
-	text = "RIVER RAID";
 	drawText(text.data(), text.size(), 350, 400);
-	std::string text2;
-	text2 = "Aperte ENTER para comecar ou ESC para sair";
 	drawText(text2.data(), text2.size(), 150, 300);
 }
 
