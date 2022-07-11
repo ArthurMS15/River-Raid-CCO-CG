@@ -63,11 +63,11 @@ void inicializar() {
 		int aux = i - 1;
 		if (i % 2 == 0) {
 			casa[i].x = 310;
-			casa[i].y = (casa[aux].y) + 100;
+			casa[i].y = (casa[aux].y) + 250;
 		}
 		else {
 			casa[i].x = -310;
-			casa[i].y = (casa[aux].y) + 100;
+			casa[i].y = (casa[aux].y) + 250;
 		}
 	}
 }
@@ -95,8 +95,8 @@ void rua() {
 	glColor3f(0.0f, 0.0f, 0.0f);
 	glVertex2f(-350, -210);
 	glVertex2f(-350, -140);
-	glVertex2f(-100, -140);
-	glVertex2f(-100, -210);
+	glVertex2f(350, -140);
+	glVertex2f(350, -210);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
@@ -121,14 +121,6 @@ void rua() {
 	glVertex2f(-150, -180);
 	glVertex2f(-100, -180);
 	glVertex2f(-100, -170);
-	glEnd();
-	/*rua*/
-	glBegin(GL_QUADS);
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glVertex2f(350, -210);
-	glVertex2f(350, -140);
-	glVertex2f(100, -140);
-	glVertex2f(100, -210);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
@@ -201,7 +193,6 @@ void baixoinfo() {
 }
 
 void lvlmap() {
-	rua();
 	/*primeira parte lago*/
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.8f);
@@ -227,6 +218,10 @@ void lvlmap() {
 	glVertex2f(200, 2000);
 	glVertex2f(200, 1000);
 	glEnd();
+	rua();
+	for (int i = 0; i < 10; i++) {
+		casaarvore(casa[i].x, casa[i].y);
+	}
 }
 
 void aviao() {
@@ -321,10 +316,6 @@ void desenhar() {
 	glTranslatef(0, -150, 0);
 	aviao();
 	glPopMatrix();
-	glTranslatef(-350, 350, 0);
-	for (int i = 0; i < 10; i++) {
-		casaarvore(casa[i].x, casa[i].y);
-	}
 	baixoinfo();
 }
 
