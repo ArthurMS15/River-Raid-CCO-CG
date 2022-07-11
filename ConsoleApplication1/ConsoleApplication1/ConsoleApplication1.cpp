@@ -9,22 +9,23 @@
 #define janela_altura 700
 #define janela_largura 700
 /*PROTOTIPAÇÃO INCOMPLETA*/
-typedef struct {
+typedef struct sIem {
 	double x;
 	double xaux;
 	double y;
 	double yaux;
 	bool show = true;
-}sItem;
+} Item;
 
-sItem house[10];
+Item casa[10];
+/*startar as houses*/
 
 void display(void);
 void tela(GLsizei w, GLsizei h);
 void keyboard(unsigned char tecla, int x, int y);
 void drawText(const char* text, int length, int x, int y);
 void anima(int valor);
-void casaarvore();
+void casaarvore(int x, int y);
 /*TRANSLAÇÕES PARA A CAMERA*/
 float ty = 0;
 float yStep = 20;
@@ -39,7 +40,7 @@ int main(int argc, char** argv) {
 	glutReshapeFunc(tela);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(&keyboard);
-	glutTimerFunc(20, anima, 1);
+	glutTimerFunc(100, anima, 1);
 	glutMainLoop();
 	return(0);
 }
@@ -52,22 +53,22 @@ void anima(int valor) {
 		ty -= yStep;
 	}
 	glutPostRedisplay();
-	glutTimerFunc(20, anima, 1);
+	glutTimerFunc(100, anima, 1);
 }
 
 void keyboard(unsigned char key, int x, int y) {
-	switch (key){
-		case '\x1B':
-			exit(EXIT_SUCCESS);
-			break;
-		case '\x0D':
-			break;
+	switch (key) {
+	case '\x1B':
+		exit(EXIT_SUCCESS);
+		break;
+	case '\x0D':
+		break;
 	}
-	if (key == 'd'){
+	if (key == 'd') {
 	}
-	if (key == 'a'){
+	if (key == 'a') {
 	}
-	if (key == ' '){
+	if (key == ' ') {
 	}
 }
 
@@ -138,21 +139,21 @@ void rua() {
 	glEnd();
 }
 
-void casaarvore() {
+void casaarvore(int x, int y) {
 	/*casa*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex2f(-310, -50);
-	glVertex2f(-310, -70);
-	glVertex2f(-230, -70);
-	glVertex2f(-230, -50);
+	glVertex2f(x, y);
+	glVertex2f(x, y - 20);
+	glVertex2f(x + 80, y - 20);
+	glVertex2f(x + 80, y);
 	glEnd();
 	/*telhado casa*/
 	glBegin(GL_TRIANGLES);
 	glColor3f(0.0f, 0.0f, 0.0f);
-	glVertex2f(-320, -50);
-	glVertex2f(-220, -50);
-	glVertex2f(-270, -30);
+	glVertex2f(x - 10, y);
+	glVertex2f(x + 90, y);
+	glVertex2f(x + 40, y + 20);
 	glEnd();
 	/*tronco árvore*/
 	glBegin(GL_QUADS);
@@ -292,7 +293,28 @@ void titulo(int x, int y) {
 	drawText(text2.data(), text2.size(), 150, 300);
 }
 
+void inicializarcasas() {
+	for (int i = 0; i < 10; i++) {
+		if (i == 0) {
+			casa[i].x = -310;
+			casa[i].y = -50;
+		}
+		if (i % 2 == 0 && i != 0) {
+			casa[i].x = casa[i - 1].x - 620;
+			casa[i].y = casa[i - 1].y + 200;
+		}
+		else {
+			casa[i].x = casa[i - 1].x + 620;
+			casa[i].y = casa[i - 1].y + 200;
+		}
+	}
+}
+
 void desenhar() {
+	inicializarcasas();
+	for (int i = 0; i < 10; i++) {
+		casaarvore(casa[i].x, casa[i].y);
+	}
 	glPushMatrix();
 	glTranslatef(0, ty, 0);
 	lvlmap();
