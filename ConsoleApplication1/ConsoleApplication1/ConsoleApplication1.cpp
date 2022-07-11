@@ -20,6 +20,7 @@ typedef struct sIem {
 int auxstart = 0;
 
 Item casa[10];
+Item posaviao;
 /*startar as houses*/
 
 void display(void);
@@ -28,6 +29,7 @@ void keyboard(unsigned char tecla, int x, int y);
 void drawText(const char* text, int length, int x, int y);
 void anima(int valor);
 void casaarvore(int x, int y);
+void inicializar(Item posaviao);
 /*TRANSLAÇÕES PARA A CAMERA*/
 float ty = 0;
 float yStep = 20;
@@ -48,17 +50,23 @@ int main(int argc, char** argv) {
 }
 
 void anima(int valor) {
+	if (auxstart == 1) {
+		posaviao.y += 1;
+	}
 	if (ty < -3700) {
 		ty = ty;
 	}
 	else {
 		ty -= yStep;
 	}
+	if (posaviao.x > 180 || posaviao.x < -180) {
+		inicializar(posaviao);
+	}
 	glutPostRedisplay();
 	glutTimerFunc(100, anima, 1);
 }
 
-void inicializar() {
+void inicializar(Item item) {
 	casa[0].x = -310;
 	casa[0].y = -50;
 	for (int i = 1; i < 10; i++) {
@@ -72,6 +80,15 @@ void inicializar() {
 			casa[i].y = (casa[aux].y) + 450;
 		}
 	}
+	if (item.y > 1600) {
+		posaviao.y = 1700;
+	}
+	else {
+		posaviao.y = -100;
+	}
+	posaviao.x = 0;
+	posaviao.xaux = 15;
+	posaviao.yaux = 25;
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -80,13 +97,19 @@ void keyboard(unsigned char key, int x, int y) {
 		exit(EXIT_SUCCESS);
 		break;
 	case '\x0D':
+		posaviao.x = 0;
+		posaviao.y = 0;
+		posaviao.xaux = 15;
+		posaviao.yaux = 25;
 		auxstart = 1;
-		inicializar();
+		inicializar(posaviao);
 		break;
 	}
 	if (key == 'd') {
+		posaviao.x += 5;
 	}
 	if (key == 'a') {
+		posaviao.x -= 5;
 	}
 	if (key == ' ') {
 	}
@@ -227,55 +250,42 @@ void lvlmap() {
 	}
 }
 
-void aviao() {
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(-30, 0);
-	glVertex2f(30, 0);
-	glVertex2f(0, 20);
+void aviao(Item item) {
+	int x = item.x;
+	int y = item.y;
+	int xaux = item.xaux;
+	int yaux = item.yaux;
+	glScalef(1, 1, 1);
+	glColor3f(1, 1, 0);
+	glBegin(GL_POLYGON);
+	glVertex2f(x - 3, y - yaux + 5);
+	glVertex2f(x - 3, y + yaux);
+	glVertex2f(x + 3, y + yaux);
+	glVertex2f(x + 3, y - yaux + 5);
 	glEnd();
-
-	glBegin(GL_QUADS);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(-10, 0);
-	glVertex2f(10, 0);
-	glVertex2f(10, -40);
-	glVertex2f(-10, -40);
+	glBegin(GL_POLYGON);
+	glVertex2f((x - xaux), y);
+	glVertex2f((x - xaux), y + 8);
+	glVertex2f(x, y + 16);
+	glVertex2f(x, y + 8);
 	glEnd();
-
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(0, -20);
-	glVertex2f(40, -70);
-	glVertex2f(5, -45);
+	glBegin(GL_POLYGON);
+	glVertex2f((x + xaux), y);
+	glVertex2f((x + xaux), y + 8);
+	glVertex2f(x, y + 16);
+	glVertex2f(x, y + 8);
 	glEnd();
-
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(0, -20);
-	glVertex2f(-40, -70);
-	glVertex2f(-5, -45);
+	glBegin(GL_POLYGON);
+	glVertex2f((x - xaux + 5), y - yaux);
+	glVertex2f((x - xaux + 5), y - yaux + 5);
+	glVertex2f(x, y - yaux + 10);
+	glVertex2f(x, y - yaux + 5);
 	glEnd();
-
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(-10, 0);
-	glVertex2f(-30, 0);
-	glVertex2f(-40, -30);
-	glEnd();
-
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(-10, -40);
-	glVertex2f(-20, 0);
-	glVertex2f(0, 0);
-	glEnd();
-
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(10, 0);
-	glVertex2f(30, 0);
-	glVertex2f(40, -30);
+	glBegin(GL_POLYGON);
+	glVertex2f((x + xaux - 5), y - yaux);
+	glVertex2f((x + xaux - 5), y - yaux + 5);
+	glVertex2f(x, y - yaux + 10);
+	glVertex2f(x, y - yaux + 5);
 	glEnd();
 }
 
@@ -319,7 +329,7 @@ void desenhar() {
 	/*movimentar avião e atirar*/
 	glPushMatrix();
 	glTranslatef(0, -150, 0);
-	aviao();
+	aviao(posaviao);
 	glPopMatrix();
 	baixoinfo();
 }
