@@ -56,12 +56,29 @@ void anima(int valor) {
 	glutTimerFunc(100, anima, 1);
 }
 
+void inicializar() {
+	casa[0].x = -310;
+	casa[0].y = -50;
+	for (int i = 1; i < 10; i++) {
+		int aux = i - 1;
+		if (i % 2 == 0) {
+			casa[i].x = 310;
+			casa[i].y = (casa[aux].y) + 100;
+		}
+		else {
+			casa[i].x = -310;
+			casa[i].y = (casa[aux].y) + 100;
+		}
+	}
+}
+
 void keyboard(unsigned char key, int x, int y) {
 	switch (key) {
 	case '\x1B':
 		exit(EXIT_SUCCESS);
 		break;
 	case '\x0D':
+		inicializar();
 		break;
 	}
 	if (key == 'd') {
@@ -293,28 +310,7 @@ void titulo(int x, int y) {
 	drawText(text2.data(), text2.size(), 150, 300);
 }
 
-void inicializarcasas() {
-	for (int i = 0; i < 10; i++) {
-		if (i == 0) {
-			casa[i].x = -310;
-			casa[i].y = -50;
-		}
-		if (i % 2 == 0 && i != 0) {
-			casa[i].x = casa[i - 1].x - 620;
-			casa[i].y = casa[i - 1].y + 200;
-		}
-		else {
-			casa[i].x = casa[i - 1].x + 620;
-			casa[i].y = casa[i - 1].y + 200;
-		}
-	}
-}
-
 void desenhar() {
-	inicializarcasas();
-	for (int i = 0; i < 10; i++) {
-		casaarvore(casa[i].x, casa[i].y);
-	}
 	glPushMatrix();
 	glTranslatef(0, ty, 0);
 	lvlmap();
@@ -325,6 +321,10 @@ void desenhar() {
 	glTranslatef(0, -150, 0);
 	aviao();
 	glPopMatrix();
+	glTranslatef(-350, 350, 0);
+	for (int i = 0; i < 10; i++) {
+		casaarvore(casa[i].x, casa[i].y);
+	}
 	baixoinfo();
 }
 
