@@ -17,6 +17,8 @@ typedef struct sIem {
 	bool show = true;
 } Item;
 
+int auxstart = 0;
+
 Item casa[10];
 /*startar as houses*/
 
@@ -46,7 +48,7 @@ int main(int argc, char** argv) {
 }
 
 void anima(int valor) {
-	if (ty < -1700) {
+	if (ty < -3700) {
 		ty = ty;
 	}
 	else {
@@ -62,12 +64,12 @@ void inicializar() {
 	for (int i = 1; i < 10; i++) {
 		int aux = i - 1;
 		if (i % 2 == 0) {
-			casa[i].x = 310;
-			casa[i].y = (casa[aux].y) + 250;
+			casa[i].x = 270;
+			casa[i].y = (casa[aux].y) + 450;
 		}
 		else {
 			casa[i].x = -310;
-			casa[i].y = (casa[aux].y) + 250;
+			casa[i].y = (casa[aux].y) + 450;
 		}
 	}
 }
@@ -78,6 +80,7 @@ void keyboard(unsigned char key, int x, int y) {
 		exit(EXIT_SUCCESS);
 		break;
 	case '\x0D':
+		auxstart = 1;
 		inicializar();
 		break;
 	}
@@ -214,8 +217,8 @@ void lvlmap() {
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.8f);
 	glVertex2f(-200, 1000);
-	glVertex2f(-200, 2000);
-	glVertex2f(200, 2000);
+	glVertex2f(-200, 4000);
+	glVertex2f(200, 4000);
 	glVertex2f(200, 1000);
 	glEnd();
 	rua();
@@ -307,7 +310,9 @@ void titulo(int x, int y) {
 
 void desenhar() {
 	glPushMatrix();
-	glTranslatef(0, ty, 0);
+	if (auxstart == 1) {
+		glTranslatef(0, ty, 0);
+	}
 	lvlmap();
 	/*melhorar o level, tornar spawn de casas aleatório, e adicionar sprites de obstaculos*/
 	glPopMatrix();
