@@ -8,7 +8,7 @@
 #define PI 3.1415926535898
 #define janela_altura 700
 #define janela_largura 700
-/*PROTOTIPAÇÃO INCOMPLETA*/
+
 typedef struct sIem {
 	double x;
 	double xaux;
@@ -31,13 +31,12 @@ void drawText(const char* text, int length, int x, int y);
 void anima(int valor);
 void casaarvore(int x, int y);
 void inicializar(Item posaviao);
-/*TRANSLAÇÕES PARA A CAMERA*/
+
 float ty = 0;
 float yStep = 20;
 std::string text = "RIVER RAID";
 std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
 
-/*TRANSLAÇÕES PARA A NAVE*/
 float tcontrol = 0;
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
