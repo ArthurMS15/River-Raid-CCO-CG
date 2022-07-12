@@ -19,11 +19,13 @@ typedef struct sIem {
 
 int auxstart = 0;
 
-Item casa[10];
 Item posaviao;
 Item postiro;
+Item casa[10];
 Item comb[10];
 Item rua[2];
+Item navio[20];
+
 /*startar as houses*/
 
 void display(void);
@@ -120,8 +122,25 @@ void inicializar(Item item) {
 	rua[1].xaux = 250;
 	rua[1].yaux = 30;
 	for (int i = 0; i < 2; i++) {
-		rua[i].show = 1;
+		rua[i].show = true;
 	}
+	navio[0].x = 150;
+	navio[0].y = 10;
+	for (int i = 1; i < 20; i++) {
+		int aux = i - 1;
+		if (i % 2 == 0) {
+			navio[i].x = (rand() % 180) * -1;
+			navio[i].y = (navio[aux].y) + 250;
+		}
+		else {
+			navio[i].x = (rand() % 180);
+			navio[i].y = (navio[aux].y) + 150;
+		}
+	}
+	for (int i = 0; i < 20; i++) {
+		navio[i].show = true;
+	}
+
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -154,6 +173,48 @@ void keyboard(unsigned char key, int x, int y) {
 		postiro.y = posaviao.y + posaviao.yaux;
 		postiro.show = posaviao.show;
 	}
+}
+
+void navios(Item item) {
+	int x = item.x;
+	int y = item.y;
+	int xaux = item.xaux;
+	int yaux = item.yaux;
+	glBegin(GL_QUADS);
+	glColor3f(0, 0, 0);
+	glVertex2f((x - xaux + 25), (y - yaux + 24));
+	glVertex2f((x + xaux - 20), (y - yaux + 24));
+	glVertex2f((x + xaux - 20), (y + yaux));
+	glVertex2f((x - xaux + 25), (y + yaux));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0, 0, 0);
+	glVertex2f((x - xaux + 10), (y - yaux + 15));
+	glVertex2f((x + xaux - 5), (y - yaux + 15));
+	glVertex2f((x + xaux - 5), (y - yaux + 20));
+	glVertex2f((x - xaux + 10), (y - yaux + 20));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0, 0, 0);
+	glVertex2f((x - xaux + 20), (y - yaux + 20));
+	glVertex2f((x + xaux - 15), (y - yaux + 20));
+	glVertex2f((x + xaux - 15), (y - yaux + 24));
+	glVertex2f((x - xaux + 20), (y - yaux + 24));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.45, 0.33, 0.13);
+	glVertex2f((x - xaux), y - yaux);
+	glVertex2f((x + xaux), y - yaux);
+	glVertex2f((x + xaux), (y - yaux + 5));
+	glVertex2f((x - xaux), (y - yaux + 5));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 0);
+	glVertex2f((x - xaux), (y - yaux + 5));
+	glVertex2f((x + xaux + 5), (y - yaux + 5));
+	glVertex2f((x + xaux + 5), (y - yaux + 15));
+	glVertex2f((x - xaux), (y - yaux + 15));
+	glEnd();
 }
 
 void tiros(Item item) {
@@ -349,6 +410,11 @@ void lvlmap() {
 	for (int i = 0; i < 10; i++) {
 		if (comb[i].show) {
 			combustivel(comb[i]);
+		}
+	}
+	for (int i = 0; i < 20; i++) {
+		if (navio[i].show) {
+			navios(navio[i]);
 		}
 	}
 }
