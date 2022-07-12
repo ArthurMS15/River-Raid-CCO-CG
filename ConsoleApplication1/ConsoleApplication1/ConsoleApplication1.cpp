@@ -22,6 +22,7 @@ int auxstart = 0;
 Item casa[10];
 Item posaviao;
 Item comb[10];
+Item rua[2];
 /*startar as houses*/
 
 void display(void);
@@ -102,6 +103,17 @@ void inicializar(Item item) {
 	posaviao.x = 0;
 	posaviao.xaux = 15;
 	posaviao.yaux = 25;
+	rua[0].x = 0;
+	rua[0].y = 2000;
+	rua[0].xaux = 250;
+	rua[0].yaux = 30;
+	rua[1].x = 0;
+	rua[1].y = 3800;
+	rua[1].xaux = 250;
+	rua[1].yaux = 30;
+	for (int i = 0; i < 2; i++) {
+		rua[i].show = 1;
+	}
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -132,62 +144,66 @@ void keyboard(unsigned char key, int x, int y) {
 	}
 }
 
-void rua() {
+void ruas(Item item) {
+	int x = item.x;
+	int y = item.y;
+	int xaux = item.xaux;
+	int yaux = item.yaux;
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.0f);
-	glVertex2f(-350, -210);
-	glVertex2f(-350, -140);
-	glVertex2f(350, -140);
-	glVertex2f(350, -210);
+	glVertex2f(x - 350, y - 210);
+	glVertex2f(x + 350, y - 210);
+	glVertex2f(x + 350, y - 140);
+	glVertex2f(x - 350, y - 140);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(-350, -170);
-	glVertex2f(-350, -180);
-	glVertex2f(-300, -180);
-	glVertex2f(-300, -170);
+	glVertex2f(x - 350, y - 170);
+	glVertex2f(x - 350, y - 180);
+	glVertex2f(x - 300, y - 180);
+	glVertex2f(x - 300, y - 170);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(-250, -170);
-	glVertex2f(-250, -180);
-	glVertex2f(-200, -180);
-	glVertex2f(-200, -170);
+	glVertex2f(x - 250, y - 170);
+	glVertex2f(x - 250, y - 180);
+	glVertex2f(x - 200, y - 180);
+	glVertex2f(x - 200, y - 170);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(-150, -170);
-	glVertex2f(-150, -180);
-	glVertex2f(-100, -180);
-	glVertex2f(-100, -170);
+	glVertex2f(x - 150, y - 170);
+	glVertex2f(x - 150, y - 180);
+	glVertex2f(x - 100, y - 180);
+	glVertex2f(x - 100, y - 170);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(150, -170);
-	glVertex2f(150, -180);
-	glVertex2f(100, -180);
-	glVertex2f(100, -170);
+	glVertex2f(x + 150, y - 170);
+	glVertex2f(x + 150, y - 180);
+	glVertex2f(x + 100, y - 180);
+	glVertex2f(x + 100, y - 170);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(250, -170);
-	glVertex2f(250, -180);
-	glVertex2f(200, -180);
-	glVertex2f(200, -170);
+	glVertex2f(x + 250, y - 170);
+	glVertex2f(x + 250, y - 180);
+	glVertex2f(x + 200, y - 180);
+	glVertex2f(x + 200, y - 170);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(350, -170);
-	glVertex2f(350, -180);
-	glVertex2f(300, -180);
-	glVertex2f(300, -170);
+	glVertex2f(x + 350, y - 170);
+	glVertex2f(x + 350, y - 180);
+	glVertex2f(x + 300, y - 180);
+	glVertex2f(x + 300, y - 170);
 	glEnd();
 }
 
@@ -298,7 +314,11 @@ void lago() {
 
 void lvlmap() {
 	lago();
-	rua();
+	for (int i = 0; i < 10; i++) {
+		if (rua[i].show) {
+			ruas(rua[i]);
+		}
+	}
 	for (int i = 0; i < 10; i++) {
 		casaarvore(casa[i].x, casa[i].y);
 	}
