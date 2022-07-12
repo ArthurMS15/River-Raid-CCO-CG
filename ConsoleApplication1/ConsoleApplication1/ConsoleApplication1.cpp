@@ -14,7 +14,7 @@ typedef struct sIem {
 	double xaux;
 	double y;
 	double yaux;
-	bool show = true;
+	int show = 1;
 } Item;
 
 int auxstart = 0;
@@ -92,7 +92,7 @@ void inicializar(Item item) {
 		}
 	}
 	for (int i = 0; i < 10; i++) {
-		comb[i].show = true;
+		comb[i].show = 1;
 	}
 	if (item.y > 1600) {
 		posaviao.y = 1700;
@@ -199,35 +199,30 @@ void combustivel(Item item) {
 	int yaux = item.yaux;
 	glScalef(1, 1, 1);
 	glBegin(GL_QUADS);
-	glColor3f(1, 0, 0);
 	glVertex2f(x - xaux, y - yaux);
 	glVertex2f((x + xaux), y - yaux);
 	glVertex2f((x + xaux), (y - yaux + 10));
 	glVertex2f(x - xaux, (y - yaux + 10));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
 	glVertex2f(x - xaux, (y - yaux + 10));
 	glVertex2f((x + xaux), (y - yaux + 10));
 	glVertex2f((x + xaux), (y - yaux + 20));
 	glVertex2f(x - xaux, (y - yaux + 20));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 0, 0);
 	glVertex2f(x - xaux, (y - yaux + 20));
 	glVertex2f((x + xaux), (y - yaux + 20));
 	glVertex2f((x + xaux), (y - yaux + 30));
 	glVertex2f(x - xaux, (y - yaux + 30));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
 	glVertex2f(x - xaux, (y - yaux + 30));
 	glVertex2f((x + xaux), (y - yaux + 30));
 	glVertex2f((x + xaux), (y + yaux - 5));
 	glVertex2f(x - xaux, (y + yaux - 5));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
 	glVertex2f((x - xaux + 20), y + yaux - 5);
 	glVertex2f((x - xaux + 20), (y + yaux));
 	glVertex2f((x - xaux + 5), (y + yaux));
@@ -306,11 +301,6 @@ void lvlmap() {
 	for (int i = 0; i < 10; i++) {
 		casaarvore(casa[i].x, casa[i].y);
 	}
-	for (int i = 0; i < 10; i++) {
-		if (comb[i].show) {
-			combustivel(comb[i]);
-		}
-	}
 }
 
 void aviao(Item item) {
@@ -383,6 +373,12 @@ void desenhar() {
 		glTranslatef(0, ty, 0);
 	}
 	lvlmap();
+	for (int i = 0; i < 10; i++) {
+		if (comb[i].show) {
+			combustivel(comb[i]);
+			printf("%.2f\n", comb[i].x);
+		}
+	}
 	/*melhorar o level, tornar spawn de casas aleatório, e adicionar sprites de obstaculos*/
 	glPopMatrix();
 	/*movimentar avião e atirar*/
