@@ -119,7 +119,7 @@ void inicializar(Item item) {
 	rua[0].xaux = 250;
 	rua[0].yaux = 30;
 	rua[1].x = 0;
-	rua[1].y = 3800;
+	rua[1].y = 4000;
 	rua[1].xaux = 250;
 	rua[1].yaux = 30;
 	for (int i = 0; i < 2; i++) {
@@ -141,7 +141,7 @@ void inicializar(Item item) {
 			navio[i].x = (rand() % 180);
 			navio[i].y = (navio[aux].y) + 100;
 			heli[i].x = (rand() % 180) * -1;
-			heli[i].y = (heli[aux].y) + 150;
+			heli[i].y = (heli[aux].y) + 350;
 		}
 	}
 	for (int i = 0; i < 20; i++) {
@@ -183,66 +183,73 @@ void keyboard(unsigned char key, int x, int y) {
 	}
 }
 
-void helis(Item item){
+void helis(Item item) {
 	int x = item.x;
 	int y = item.y;
-	int offsetX = item.xaux;
-	int offsetY = item.yaux;
-	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
-	glVertex2f((x - 10), y - offsetY);
-	glVertex2f((x - 10), y - offsetY + 3);
-	glVertex2f((x + 10), y - offsetY + 3);
-	glVertex2f((x + 10), (y - offsetY));
-	glEnd();
-	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
-	glVertex2f((x - 2), y - offsetY);
-	glVertex2f((x - 2), y);
-	glVertex2f((x + 2), y);
-	glVertex2f((x + 2), (y - offsetY));
+	int xaux = item.xaux;
+	int yaux = item.yaux;
+	glBegin(GL_QUADS);
+	glColor3f(0.8, 0.8, 0.8);
+	glVertex2f((x - xaux + 20), (y - yaux + 30));
+	glVertex2f((x + xaux - 10), (y - yaux + 30));
+	glVertex2f((x + xaux - 10), (y + yaux + 10));
+	glVertex2f((x - xaux + 20), (y + yaux + 10));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 0, 1);
-	glVertex2f((x - offsetX), y);
-	glVertex2f((x - offsetX), (y + 5));
-	glVertex2f((x + offsetX), (y + 5));
-	glVertex2f((x + offsetX), y);
+	glColor3f(0.8, 0, 0.8);
+	glVertex2f((x - xaux + 4), (y - yaux + 10));
+	glVertex2f((x + xaux + 8), (y - yaux + 10));
+	glVertex2f((x + xaux + 8), (y - yaux));
+	glVertex2f((x - xaux + 4), (y - yaux));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 0, 1);
-	glVertex2f((x - offsetX + 15), y - 5);
-	glVertex2f((x - offsetX + 15), (y + 5));
-	glVertex2f((x + offsetX - 10), (y + 5));
-	glVertex2f((x + offsetX - 10), y - 5);
+	glColor3f(0.8, 0, 0.8);
+	glVertex2f((x - xaux), (y - yaux - 5));
+	glVertex2f((x + xaux + 10), (y - yaux - 5));
+	glVertex2f((x + xaux + 10), (y - yaux));
+	glVertex2f((x - xaux), (y - yaux));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 0, 1);
-	glVertex2f((x - offsetX), (y - 10));
-	glVertex2f((x - offsetX), (y + 10));
-	glVertex2f((x - offsetX + 7), (y + 5));
-	glVertex2f((x - offsetX + 7), (y - 5));
+	glColor3f(0.8, 0.8, 0.8);
+	glVertex2f((x - xaux + 20), (y - yaux + 30));
+	glVertex2f((x - xaux + 20), (y + yaux + 10));
+	glVertex2f((x - xaux + 30), (y + yaux + 15));
+	glVertex2f((x - xaux + 30), (y + yaux + 25));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
-	glVertex2f((x - 2), (y + 5));
-	glVertex2f((x - 2), (y + 10));
-	glVertex2f((x + 2), (y + 10));
-	glVertex2f((x + 2), (y + 5));
+	glColor3f(0.8, 0.8, 0.8);
+	glVertex2f((x - xaux - 10), (y - yaux + 30));
+	glVertex2f((x - xaux - 10), (y + yaux + 10));
+	glVertex2f((x - xaux - 20), (y + yaux + 15));
+	glVertex2f((x - xaux - 20), (y + yaux + 25));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
-	glVertex2f(x - 2, (y + 10));
-	glVertex2f(x - 2, (y + 12.5));
-	glVertex2f((x + 20), (y + 12.5));
-	glVertex2f((x + 20), (y + 10));
+	glColor3f(0.8, 0.8, 0.8);
+	glVertex2f((x - xaux - 20), (y - yaux + 20));
+	glVertex2f((x + xaux - 30), (y - yaux + 20));
+	glVertex2f((x + xaux - 30), (y + yaux + 12.5));
+	glVertex2f((x - xaux - 20), (y + yaux + 12.5));
 	glEnd();
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
-	glVertex2f(x - 2, (y + 12.5));
-	glVertex2f(x - 2, (y + 15));
-	glVertex2f((x - offsetX + 5), (y + 15));
-	glVertex2f((x - offsetX + 5), (y + 12.5));
+	glColor3f(0.8, 0, 0.8);
+	glVertex2f((x - xaux), (y - yaux + 30));
+	glVertex2f((x + xaux + 5), (y - yaux + 30));
+	glVertex2f((x + xaux + 5), (y - yaux + 50));
+	glVertex2f((x - xaux), (y - yaux + 50));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1.0, 1.0, 1.0);
+	glVertex2f(x, y - yaux + 55);
+	glVertex2f(x, y - yaux + 50);
+	glVertex2f(x - 20, y - yaux + 50);
+	glVertex2f(x - 20, y - yaux + 55);
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1.0, 1.0, 1.0);
+	glVertex2f(x + 5, y - yaux + 55);
+	glVertex2f(x + 5, y - yaux + 50);
+	glVertex2f(x + 25, y - yaux + 50);
+	glVertex2f(x + 25, y - yaux + 55);
 	glEnd();
 }
 
@@ -456,11 +463,6 @@ void lago() {
 void lvlmap() {
 	lago();
 	for (int i = 0; i < 10; i++) {
-		if (rua[i].show) {
-			ruas(rua[i]);
-		}
-	}
-	for (int i = 0; i < 10; i++) {
 		casaarvore(casa[i].x, casa[i].y);
 	}
 	for (int i = 0; i < 10; i++) {
@@ -472,6 +474,11 @@ void lvlmap() {
 		if (navio[i].show) {
 			navios(navio[i]);
 			helis(heli[i]);
+		}
+	}
+	for (int i = 0; i < 2; i++) {
+		if (rua[i].show) {
+			ruas(rua[i]);
 		}
 	}
 }
