@@ -192,7 +192,6 @@ void rua() {
 }
 
 void combustivel(Item item) {
-<<<<<<< HEAD
 	int x = item.x;
 	int y = item.y;
 	int xaux = item.xaux;
@@ -230,45 +229,6 @@ void combustivel(Item item) {
 	glVertex2f((x - xaux), y + yaux - 40);
 	glVertex2f((x - xaux), y + yaux - 50);
 	glEnd();
-=======
-  int x = item.x;
-  int y = item.y;
-  int xaux = item.xaux;
-  int yaux = item.yaux;
-  glScalef(1, 1, 1);
-
-  glBegin(GL_QUADS);
-  glColor3f(1, 1, 1);
-  glVertex2f((x - xaux + 20), y + yaux - 5);
-  glVertex2f((x - xaux + 20), (y + yaux));
-  glVertex2f((x - xaux + 5), (y + yaux));
-  glVertex2f((x - xaux + 5), (y + yaux - 5));
-  glEnd();
-
-  glBegin(GL_QUADS);
-  glColor3f(1, 1, 1);
-  glVertex2f((x - xaux + 25), y + yaux - 20);
-  glVertex2f((x - xaux + 25), y + yaux - 10);
-  glVertex2f((x - xaux), y + yaux - 10);
-  glVertex2f((x - xaux), y + yaux - 20);
-  glEnd();
-
-  glBegin(GL_QUADS);
-  glColor3f(1, 1, 1);
-  glVertex2f((x - xaux + 25), y + yaux - 35);
-  glVertex2f((x - xaux + 25), y + yaux - 25);
-  glVertex2f((x - xaux), y + yaux - 25);
-  glVertex2f((x - xaux), y + yaux - 35);
-  glEnd();
-
-  glBegin(GL_QUADS);
-  glColor3f(1, 1, 1);
-  glVertex2f((x - xaux + 25), y + yaux - 50);
-  glVertex2f((x - xaux + 25), y + yaux - 40);
-  glVertex2f((x - xaux), y + yaux - 40);
-  glVertex2f((x - xaux), y + yaux - 50);
-  glEnd();
->>>>>>> f4867164d8610b588bda2c455d4cfaeb41e60c1b
 }
 
 void casaarvore(int x, int y) {
