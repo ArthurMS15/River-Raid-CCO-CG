@@ -25,6 +25,7 @@ Item casa[10];
 Item comb[10];
 Item rua[2];
 Item navio[20];
+Item heli[20];
 
 /*startar as houses*/
 
@@ -126,19 +127,26 @@ void inicializar(Item item) {
 	}
 	navio[0].x = 150;
 	navio[0].y = 10;
+	heli[0].x = -150;
+	heli[0].y = 10;
 	for (int i = 1; i < 20; i++) {
 		int aux = i - 1;
 		if (i % 2 == 0) {
 			navio[i].x = (rand() % 180) * -1;
 			navio[i].y = (navio[aux].y) + 250;
+			heli[i].x = (rand() % 180);
+			heli[i].y = (heli[aux].y) + 100;
 		}
 		else {
 			navio[i].x = (rand() % 180);
-			navio[i].y = (navio[aux].y) + 150;
+			navio[i].y = (navio[aux].y) + 100;
+			heli[i].x = (rand() % 180) * -1;
+			heli[i].y = (heli[aux].y) + 150;
 		}
 	}
 	for (int i = 0; i < 20; i++) {
 		navio[i].show = true;
+		heli[i].show = true;
 	}
 
 }
@@ -173,6 +181,69 @@ void keyboard(unsigned char key, int x, int y) {
 		postiro.y = posaviao.y + posaviao.yaux;
 		postiro.show = posaviao.show;
 	}
+}
+
+void helis(Item item){
+	int x = item.x;
+	int y = item.y;
+	int offsetX = item.xaux;
+	int offsetY = item.yaux;
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f((x - 10), y - offsetY);
+	glVertex2f((x - 10), y - offsetY + 3);
+	glVertex2f((x + 10), y - offsetY + 3);
+	glVertex2f((x + 10), (y - offsetY));
+	glEnd();
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f((x - 2), y - offsetY);
+	glVertex2f((x - 2), y);
+	glVertex2f((x + 2), y);
+	glVertex2f((x + 2), (y - offsetY));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 1);
+	glVertex2f((x - offsetX), y);
+	glVertex2f((x - offsetX), (y + 5));
+	glVertex2f((x + offsetX), (y + 5));
+	glVertex2f((x + offsetX), y);
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 1);
+	glVertex2f((x - offsetX + 15), y - 5);
+	glVertex2f((x - offsetX + 15), (y + 5));
+	glVertex2f((x + offsetX - 10), (y + 5));
+	glVertex2f((x + offsetX - 10), y - 5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 1);
+	glVertex2f((x - offsetX), (y - 10));
+	glVertex2f((x - offsetX), (y + 10));
+	glVertex2f((x - offsetX + 7), (y + 5));
+	glVertex2f((x - offsetX + 7), (y - 5));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f((x - 2), (y + 5));
+	glVertex2f((x - 2), (y + 10));
+	glVertex2f((x + 2), (y + 10));
+	glVertex2f((x + 2), (y + 5));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - 2, (y + 10));
+	glVertex2f(x - 2, (y + 12.5));
+	glVertex2f((x + 20), (y + 12.5));
+	glVertex2f((x + 20), (y + 10));
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - 2, (y + 12.5));
+	glVertex2f(x - 2, (y + 15));
+	glVertex2f((x - offsetX + 5), (y + 15));
+	glVertex2f((x - offsetX + 5), (y + 12.5));
+	glEnd();
 }
 
 void navios(Item item) {
@@ -400,6 +471,7 @@ void lvlmap() {
 	for (int i = 0; i < 20; i++) {
 		if (navio[i].show) {
 			navios(navio[i]);
+			helis(heli[i]);
 		}
 	}
 }
