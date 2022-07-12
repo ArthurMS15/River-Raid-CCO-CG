@@ -192,6 +192,7 @@ void rua() {
 }
 
 void combustivel(Item item) {
+<<<<<<< HEAD
 	int x = item.x;
 	int y = item.y;
 	int xaux = item.xaux;
@@ -229,6 +230,45 @@ void combustivel(Item item) {
 	glVertex2f((x - xaux), y + yaux - 40);
 	glVertex2f((x - xaux), y + yaux - 50);
 	glEnd();
+=======
+  int x = item.x;
+  int y = item.y;
+  int xaux = item.xaux;
+  int yaux = item.yaux;
+  glScalef(1, 1, 1);
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 20), y + yaux - 5);
+  glVertex2f((x - xaux + 20), (y + yaux));
+  glVertex2f((x - xaux + 5), (y + yaux));
+  glVertex2f((x - xaux + 5), (y + yaux - 5));
+  glEnd();
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 25), y + yaux - 20);
+  glVertex2f((x - xaux + 25), y + yaux - 10);
+  glVertex2f((x - xaux), y + yaux - 10);
+  glVertex2f((x - xaux), y + yaux - 20);
+  glEnd();
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 25), y + yaux - 35);
+  glVertex2f((x - xaux + 25), y + yaux - 25);
+  glVertex2f((x - xaux), y + yaux - 25);
+  glVertex2f((x - xaux), y + yaux - 35);
+  glEnd();
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 25), y + yaux - 50);
+  glVertex2f((x - xaux + 25), y + yaux - 40);
+  glVertex2f((x - xaux), y + yaux - 40);
+  glVertex2f((x - xaux), y + yaux - 50);
+  glEnd();
+>>>>>>> f4867164d8610b588bda2c455d4cfaeb41e60c1b
 }
 
 void casaarvore(int x, int y) {
@@ -247,7 +287,7 @@ void casaarvore(int x, int y) {
 	glVertex2f(x + 90, y);
 	glVertex2f(x + 40, y + 20);
 	glEnd();
-	/*tronco ·rvore*/
+	/*tronco √°rvore*/
 	glBegin(GL_QUADS);
 	glColor3f(0.5f, 0.3f, 1.0f);
 	glVertex2f(-250, -90);
@@ -255,7 +295,7 @@ void casaarvore(int x, int y) {
 	glVertex2f(-240, -110);
 	glVertex2f(-240, -90);
 	glEnd();
-	/*folhas ·rvore*/
+	/*folhas √°rvore*/
 	glBegin(GL_TRIANGLES);
 	glColor3f(0.0f, 1.0f, 0.0f);
 	glVertex2f(-260, -90);
@@ -265,7 +305,7 @@ void casaarvore(int x, int y) {
 }
 
 void baixoinfo() {
-	/*canto em baixo FUN«√O PARA LETRAS*/
+	/*canto em baixo FUN√á√ÉO PARA LETRAS*/
 	glBegin(GL_QUADS);
 	glColor3f(0.8f, 0.8f, 0.8f);
 	glVertex2f(-350, -350);
@@ -379,9 +419,9 @@ void desenhar() {
 		glTranslatef(0, ty, 0);
 	}
 	lvlmap();
-	/*melhorar o level, tornar spawn de casas aleatÛrio, e adicionar sprites de obstaculos*/
+	/*melhorar o level, tornar spawn de casas aleat√≥rio, e adicionar sprites de obstaculos*/
 	glPopMatrix();
-	/*movimentar avi„o e atirar*/
+	/*movimentar avi√£o e atirar*/
 	glPushMatrix();
 	glTranslatef(0, -150, 0);
 	aviao(posaviao);
