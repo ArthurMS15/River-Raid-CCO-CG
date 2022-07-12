@@ -8,7 +8,7 @@
 #define PI 3.1415926535898
 #define janela_altura 700
 #define janela_largura 700
-/*PROTOTIPA«√O INCOMPLETA*/
+/*PROTOTIPA√á√ÉO INCOMPLETA*/
 typedef struct sIem {
 	double x;
 	double xaux;
@@ -31,13 +31,13 @@ void drawText(const char* text, int length, int x, int y);
 void anima(int valor);
 void casaarvore(int x, int y);
 void inicializar(Item posaviao);
-/*TRANSLA«’ES PARA A CAMERA*/
+/*TRANSLA√á√ïES PARA A CAMERA*/
 float ty = 0;
 float yStep = 20;
 std::string text = "RIVER RAID";
 std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
 
-/*TRANSLA«’ES PARA A NAVE*/
+/*TRANSLA√á√ïES PARA A NAVE*/
 float tcontrol = 0;
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -193,46 +193,43 @@ void rua() {
 }
 
 void combustivel(Item item) {
-	int x = item.x;
-	int y = item.y;
-	int xaux = item.xaux;
-	int yaux = item.yaux;
-	glScalef(1, 1, 1);
-	glBegin(GL_QUADS);
-	glColor3f(1, 0, 0);
-	glVertex2f(x - xaux, y - yaux);
-	glVertex2f((x + xaux), y - yaux);
-	glVertex2f((x + xaux), (y - yaux + 10));
-	glVertex2f(x - xaux, (y - yaux + 10));
-	glEnd();
-	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
-	glVertex2f(x - xaux, (y - yaux + 10));
-	glVertex2f((x + xaux), (y - yaux + 10));
-	glVertex2f((x + xaux), (y - yaux + 20));
-	glVertex2f(x - xaux, (y - yaux + 20));
-	glEnd();
-	glBegin(GL_QUADS);
-	glColor3f(1, 0, 0);
-	glVertex2f(x - xaux, (y - yaux + 20));
-	glVertex2f((x + xaux), (y - yaux + 20));
-	glVertex2f((x + xaux), (y - yaux + 30));
-	glVertex2f(x - xaux, (y - yaux + 30));
-	glEnd();
-	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
-	glVertex2f(x - xaux, (y - yaux + 30));
-	glVertex2f((x + xaux), (y - yaux + 30));
-	glVertex2f((x + xaux), (y + yaux - 5));
-	glVertex2f(x - xaux, (y + yaux - 5));
-	glEnd();
-	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
-	glVertex2f((x - xaux + 20), y + yaux - 5);
-	glVertex2f((x - xaux + 20), (y + yaux));
-	glVertex2f((x - xaux + 5), (y + yaux));
-	glVertex2f((x - xaux + 5), (y + yaux - 5));
-	glEnd();
+  int x = item.x;
+  int y = item.y;
+  int xaux = item.xaux;
+  int yaux = item.yaux;
+  glScalef(1, 1, 1);
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 20), y + yaux - 5);
+  glVertex2f((x - xaux + 20), (y + yaux));
+  glVertex2f((x - xaux + 5), (y + yaux));
+  glVertex2f((x - xaux + 5), (y + yaux - 5));
+  glEnd();
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 25), y + yaux - 20);
+  glVertex2f((x - xaux + 25), y + yaux - 10);
+  glVertex2f((x - xaux), y + yaux - 10);
+  glVertex2f((x - xaux), y + yaux - 20);
+  glEnd();
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 25), y + yaux - 35);
+  glVertex2f((x - xaux + 25), y + yaux - 25);
+  glVertex2f((x - xaux), y + yaux - 25);
+  glVertex2f((x - xaux), y + yaux - 35);
+  glEnd();
+
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex2f((x - xaux + 25), y + yaux - 50);
+  glVertex2f((x - xaux + 25), y + yaux - 40);
+  glVertex2f((x - xaux), y + yaux - 40);
+  glVertex2f((x - xaux), y + yaux - 50);
+  glEnd();
 }
 
 void casaarvore(int x, int y) {
@@ -251,7 +248,7 @@ void casaarvore(int x, int y) {
 	glVertex2f(x + 90, y);
 	glVertex2f(x + 40, y + 20);
 	glEnd();
-	/*tronco ·rvore*/
+	/*tronco √°rvore*/
 	glBegin(GL_QUADS);
 	glColor3f(0.5f, 0.3f, 1.0f);
 	glVertex2f(-250, -90);
@@ -259,7 +256,7 @@ void casaarvore(int x, int y) {
 	glVertex2f(-240, -110);
 	glVertex2f(-240, -90);
 	glEnd();
-	/*folhas ·rvore*/
+	/*folhas √°rvore*/
 	glBegin(GL_TRIANGLES);
 	glColor3f(0.0f, 1.0f, 0.0f);
 	glVertex2f(-260, -90);
@@ -269,7 +266,7 @@ void casaarvore(int x, int y) {
 }
 
 void baixoinfo() {
-	/*canto em baixo FUN«√O PARA LETRAS*/
+	/*canto em baixo FUN√á√ÉO PARA LETRAS*/
 	glBegin(GL_QUADS);
 	glColor3f(0.8f, 0.8f, 0.8f);
 	glVertex2f(-350, -350);
@@ -383,9 +380,9 @@ void desenhar() {
 		glTranslatef(0, ty, 0);
 	}
 	lvlmap();
-	/*melhorar o level, tornar spawn de casas aleatÛrio, e adicionar sprites de obstaculos*/
+	/*melhorar o level, tornar spawn de casas aleat√≥rio, e adicionar sprites de obstaculos*/
 	glPopMatrix();
-	/*movimentar avi„o e atirar*/
+	/*movimentar avi√£o e atirar*/
 	glPushMatrix();
 	glTranslatef(0, -150, 0);
 	aviao(posaviao);
