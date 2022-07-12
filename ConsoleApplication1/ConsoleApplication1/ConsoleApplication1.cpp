@@ -21,6 +21,7 @@ int auxstart = 0;
 
 Item casa[10];
 Item posaviao;
+Item postiro;
 Item comb[10];
 Item rua[2];
 /*startar as houses*/
@@ -56,6 +57,12 @@ int main(int argc, char** argv) {
 void anima(int valor) {
 	if (auxstart == 1) {
 		posaviao.y += 1;
+	}
+	if (postiro.show) {
+		postiro.y += 30;
+	}
+	if (posaviao.y > posaviao.y + 250) {
+		postiro.show = 0;
 	}
 	if (ty < -3700) {
 		ty = ty;
@@ -94,6 +101,7 @@ void inicializar(Item item) {
 	for (int i = 0; i < 10; i++) {
 		comb[i].show = true;
 	}
+	postiro.show = 0;
 	if (item.y > 1600) {
 		posaviao.y = 1700;
 	}
@@ -141,7 +149,23 @@ void keyboard(unsigned char key, int x, int y) {
 		posaviao.x -= 5;
 	}
 	if (key == ' ') {
+		/*marcar possivel colisao*/
+		postiro.x = posaviao.x;
+		postiro.y = posaviao.y + posaviao.yaux;
+		postiro.show = posaviao.show;
 	}
+}
+
+void tiros(Item item) {
+	int x = item.x;
+	int y = item.y;
+
+	glBegin(GL_TRIANGLES);
+	glColor3f(1, 1, 0);
+	glVertex2f(x - 5, y - 20);
+	glVertex2f(x, (y - 10));
+	glVertex2f((x + 5), y - 20);
+	glEnd();
 }
 
 void ruas(Item item) {
@@ -405,6 +429,9 @@ void desenhar() {
 	glPushMatrix();
 	glTranslatef(0, -150, 0);
 	aviao(posaviao);
+	if (postiro.show) {
+		tiros(postiro);
+	}
 	glPopMatrix();
 	baixoinfo();
 }
