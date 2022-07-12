@@ -8,13 +8,13 @@
 #define PI 3.1415926535898
 #define janela_altura 700
 #define janela_largura 700
-/*PROTOTIPAÇÃO INCOMPLETA*/
+
 typedef struct sIem {
 	double x;
 	double xaux;
 	double y;
 	double yaux;
-	int show = 1;
+	bool show = true;
 } Item;
 
 int auxstart = 0;
@@ -31,13 +31,12 @@ void drawText(const char* text, int length, int x, int y);
 void anima(int valor);
 void casaarvore(int x, int y);
 void inicializar(Item posaviao);
-/*TRANSLAÇÕES PARA A CAMERA*/
+
 float ty = 0;
 float yStep = 20;
 std::string text = "RIVER RAID";
 std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
 
-/*TRANSLAÇÕES PARA A NAVE*/
 float tcontrol = 0;
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -92,7 +91,7 @@ void inicializar(Item item) {
 		}
 	}
 	for (int i = 0; i < 10; i++) {
-		comb[i].show = 1;
+		comb[i].show = true;
 	}
 	if (item.y > 1600) {
 		posaviao.y = 1700;
@@ -198,35 +197,37 @@ void combustivel(Item item) {
 	int xaux = item.xaux;
 	int yaux = item.yaux;
 	glScalef(1, 1, 1);
+
 	glBegin(GL_QUADS);
-	glVertex2f(x - xaux, y - yaux);
-	glVertex2f((x + xaux), y - yaux);
-	glVertex2f((x + xaux), (y - yaux + 10));
-	glVertex2f(x - xaux, (y - yaux + 10));
-	glEnd();
-	glBegin(GL_QUADS);
-	glVertex2f(x - xaux, (y - yaux + 10));
-	glVertex2f((x + xaux), (y - yaux + 10));
-	glVertex2f((x + xaux), (y - yaux + 20));
-	glVertex2f(x - xaux, (y - yaux + 20));
-	glEnd();
-	glBegin(GL_QUADS);
-	glVertex2f(x - xaux, (y - yaux + 20));
-	glVertex2f((x + xaux), (y - yaux + 20));
-	glVertex2f((x + xaux), (y - yaux + 30));
-	glVertex2f(x - xaux, (y - yaux + 30));
-	glEnd();
-	glBegin(GL_QUADS);
-	glVertex2f(x - xaux, (y - yaux + 30));
-	glVertex2f((x + xaux), (y - yaux + 30));
-	glVertex2f((x + xaux), (y + yaux - 5));
-	glVertex2f(x - xaux, (y + yaux - 5));
-	glEnd();
-	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
 	glVertex2f((x - xaux + 20), y + yaux - 5);
 	glVertex2f((x - xaux + 20), (y + yaux));
 	glVertex2f((x - xaux + 5), (y + yaux));
 	glVertex2f((x - xaux + 5), (y + yaux - 5));
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f((x - xaux + 25), y + yaux - 20);
+	glVertex2f((x - xaux + 25), y + yaux - 10);
+	glVertex2f((x - xaux), y + yaux - 10);
+	glVertex2f((x - xaux), y + yaux - 20);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f((x - xaux + 25), y + yaux - 35);
+	glVertex2f((x - xaux + 25), y + yaux - 25);
+	glVertex2f((x - xaux), y + yaux - 25);
+	glVertex2f((x - xaux), y + yaux - 35);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glVertex2f((x - xaux + 25), y + yaux - 50);
+	glVertex2f((x - xaux + 25), y + yaux - 40);
+	glVertex2f((x - xaux), y + yaux - 40);
+	glVertex2f((x - xaux), y + yaux - 50);
 	glEnd();
 }
 
@@ -301,6 +302,11 @@ void lvlmap() {
 	for (int i = 0; i < 10; i++) {
 		casaarvore(casa[i].x, casa[i].y);
 	}
+	for (int i = 0; i < 10; i++) {
+		if (comb[i].show) {
+			combustivel(comb[i]);
+		}
+	}
 }
 
 void aviao(Item item) {
@@ -373,12 +379,6 @@ void desenhar() {
 		glTranslatef(0, ty, 0);
 	}
 	lvlmap();
-	for (int i = 0; i < 10; i++) {
-		if (comb[i].show) {
-			combustivel(comb[i]);
-			printf("%.2f\n", comb[i].x);
-		}
-	}
 	/*melhorar o level, tornar spawn de casas aleatório, e adicionar sprites de obstaculos*/
 	glPopMatrix();
 	/*movimentar avião e atirar*/
