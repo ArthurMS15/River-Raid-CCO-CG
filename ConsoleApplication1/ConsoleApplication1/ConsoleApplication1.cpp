@@ -172,18 +172,16 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 	}
 	if (key == 'd') {
-		posaviao.x += 10;
+		posaviao.x += 5;
 	}
 	if (key == 'a') {
-		posaviao.x -= 10;
+		posaviao.x -= 5;
 	}
 	if (key == 'w') {
-		yStep = 15;
-		ty -= yStep;
-		yStep = 10;
+		posaviao.y += 5;
 	}
 	if (key == 's') {
-		ty -= yStep;
+		posaviao.y -= 5;
 	}
 	if (key == ' ') {
 		/*marcar possivel colisao*/
@@ -498,7 +496,6 @@ void aviao(Item item) {
 	int y = item.y;
 	int xaux = item.xaux;
 	int yaux = item.yaux;
-	glScalef(1, 1, 1);
 	glColor3f(1, 1, 0);
 	glBegin(GL_POLYGON);
 	glVertex2f(x - 3, y - yaux + 5);
