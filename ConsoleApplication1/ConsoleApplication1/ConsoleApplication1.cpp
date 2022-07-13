@@ -106,16 +106,12 @@ void inicializar(Item item) {
 		comb[i].show = true;
 	}
 	postiro.show = 0;
-	if (item.y > 1600) {
-		posaviao.y = 1700;
-		posinfobaixo.y = 1650;
-	}
-	else {
-		posaviao.y = -100;
-	}
+	posaviao.y = -100;
 	posaviao.x = 0;
 	posaviao.xaux = 15;
 	posaviao.yaux = 25;
+	posinfobaixo.y = 0;
+	posinfobaixo.x = 0;
 	rua[0].x = 0;
 	rua[0].y = 2000;
 	rua[0].xaux = 250;
@@ -436,14 +432,32 @@ void casaarvore(int x, int y) {
 	glEnd();
 }
 
-void baixoinfo() {
+void infobaixo(Item item) {
+	int x = item.x;
+	int y = item.y;
 	/*canto em baixo FUNÇÃO PARA LETRAS*/
 	glBegin(GL_QUADS);
-	glColor3f(0.8f, 0.8f, 0.8f);
+	glColor3f(0.0f, 0.0f, 0.0f);
 	glVertex2f(-350, -350);
 	glVertex2f(-350, -240);
 	glVertex2f(350, -240);
 	glVertex2f(350, -350);
+	glEnd();
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - 250, y - 280);
+	glVertex2f((x - 250), y - 290);
+	glEnd();
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x + 250, y - 280);
+	glVertex2f((x + 250), y - 290);
+	glEnd();
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x, y - 280);
+	glVertex2f(x, y - 290);
 	glEnd();
 }
 
@@ -570,7 +584,7 @@ void desenhar() {
 		tiros(postiro);
 	}
 	glPopMatrix();
-	baixoinfo();
+	infobaixo(posinfobaixo);
 }
 
 void display() {
