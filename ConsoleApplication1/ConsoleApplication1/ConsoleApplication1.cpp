@@ -443,6 +443,7 @@ void infobaixo(Item item) {
 	glVertex2f(350, -240);
 	glVertex2f(350, -350);
 	glEnd();
+	glPushMatrix();
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_LINES);
 	glColor3f(1, 1, 1);
@@ -458,6 +459,28 @@ void infobaixo(Item item) {
 	glColor3f(1, 1, 1);
 	glVertex2f(x, y - 280);
 	glVertex2f(x, y - 290);
+	glEnd();
+	/*E*/
+	glLineWidth(1000000000);
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - 240, y - 330);
+	glVertex2f((x - 270), y - 330);
+	glEnd();
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - 240, y - 315);
+	glVertex2f((x - 270), y - 315);
+	glEnd();
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - 240, y - 300);
+	glVertex2f((x - 270), y - 300);
+	glEnd();
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x - 270, y - 330);
+	glVertex2f((x - 270), y - 300);
 	glEnd();
 }
 
