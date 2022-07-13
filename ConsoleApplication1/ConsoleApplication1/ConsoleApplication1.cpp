@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
 void anima(int valor) {
 	if (auxstart == 1) {
 		posaviao.y += 1;
-		posind.x -= 1;
+		posind.x -= 5;
 	}
 	if (postiro.show) {
 		postiro.y += 30;
@@ -70,11 +70,11 @@ void anima(int valor) {
 	if (posaviao.y > posaviao.y + 250) {
 		postiro.show = 0;
 	}
-	if (posind.x < -250){
-		inicializar(posaviao);
-	}
-	if (ty < -4000) {
+	if (ty < -3000) {
 		ty = ty;
+	}
+	if (posind.x < -250) {
+		inicializar(posaviao);
 	}
 	else {
 		ty -= yStep;
@@ -119,7 +119,6 @@ void inicializar(Item item) {
 	posinfobaixo.x = 0;
 	posind.y = 0;
 	posind.x = 250;
-
 	rua[0].x = 0;
 	rua[0].y = 2000;
 	rua[0].xaux = 250;
@@ -195,18 +194,19 @@ void keyboard(unsigned char key, int x, int y) {
 	}
 }
 
-void indica(Item item){
+void indica(Item item) {
 	int x = item.x;
 	int y = item.y;
-	glScalef(1, 1, 1);
+	glScalef(1.0, 1.0, 1.0);
 	glBegin(GL_QUADS);
 	glColor3f(1, 1, 0);
-	glVertex2f(x - 5, y - 190);
-	glVertex2f((x - 5), y - 220);
-	glVertex2f((x + 5), (y - 220));
-	glVertex2f(x + 5, (y - 190));
+	glVertex2f(x - 5, y - 280);
+	glVertex2f((x - 5), y - 310);
+	glVertex2f((x + 5), (y - 310));
+	glVertex2f(x + 5, (y - 280));
 	glEnd();
 }
+
 
 void helis(Item item) {
 	int x = item.x;
@@ -485,13 +485,13 @@ void infobaixo(Item item) {
 	glLineWidth(1000000000);
 	glBegin(GL_LINES);
 	glColor3f(1, 1, 1);
-	glVertex2f(x + 270, y - 300);
-	glVertex2f((x + 240), y - 300);
+	glVertex2f(x + 240, y - 300);
+	glVertex2f((x + 270), y - 300);
 	glEnd();
 	glBegin(GL_LINES);
 	glColor3f(1, 1, 1);
-	glVertex2f(x + 270, y - 315);
-	glVertex2f((x + 240), y - 315);
+	glVertex2f(x + 240, y - 315);
+	glVertex2f((x + 270), y - 315);
 	glEnd();
 	glBegin(GL_LINES);
 	glColor3f(1, 1, 1);
