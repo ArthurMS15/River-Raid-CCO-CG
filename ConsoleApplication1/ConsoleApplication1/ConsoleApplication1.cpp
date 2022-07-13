@@ -68,7 +68,7 @@ void anima(int valor) {
 	if (posaviao.y > posaviao.y + 250) {
 		postiro.show = 0;
 	}
-	if (ty < -3700) {
+	if (ty < -4000) {
 		ty = ty;
 	}
 	else {
@@ -121,7 +121,7 @@ void inicializar(Item item) {
 	rua[0].xaux = 250;
 	rua[0].yaux = 30;
 	rua[1].x = 0;
-	rua[1].y = 4000;
+	rua[1].y = 4100;
 	rua[1].xaux = 250;
 	rua[1].yaux = 30;
 	for (int i = 0; i < 2; i++) {
@@ -564,7 +564,7 @@ void desenhar() {
 	glPopMatrix();
 	/*movimentar avião e atirar*/
 	glPushMatrix();
-	glTranslatef(0, -150, 0);
+	glTranslatef(0, -100, 0);
 	aviao(posaviao);
 	if (postiro.show) {
 		tiros(postiro);
