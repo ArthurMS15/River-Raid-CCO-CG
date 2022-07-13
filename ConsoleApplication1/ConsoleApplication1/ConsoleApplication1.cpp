@@ -21,6 +21,7 @@ int auxstart = 0;
 
 Item posaviao;
 Item postiro;
+Item posinfobaixo;
 Item casa[10];
 Item comb[10];
 Item rua[2];
@@ -107,6 +108,7 @@ void inicializar(Item item) {
 	postiro.show = 0;
 	if (item.y > 1600) {
 		posaviao.y = 1700;
+		posinfobaixo.y = 1650;
 	}
 	else {
 		posaviao.y = -100;
