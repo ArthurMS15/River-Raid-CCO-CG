@@ -9,7 +9,7 @@
 #define janela_altura 700
 #define janela_largura 700
 
-typedef struct sIem {
+typedef struct sItem {
 	double x;
 	double xaux;
 	double y;
@@ -39,7 +39,7 @@ void casaarvore(int x, int y);
 void inicializar(Item posaviao);
 
 float ty = 0;
-float yStep = 20;
+float yStep = 10;
 std::string text = "RIVER RAID";
 std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
 
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
 	glutReshapeFunc(tela);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(&keyboard);
-	glutTimerFunc(100, anima, 1);
+	glutTimerFunc(50, anima, 1);
 	glutMainLoop();
 	return(0);
 }
@@ -78,7 +78,7 @@ void anima(int valor) {
 		inicializar(posaviao);
 	}
 	glutPostRedisplay();
-	glutTimerFunc(100, anima, 1);
+	glutTimerFunc(50, anima, 1);
 }
 
 void inicializar(Item item) {
@@ -172,10 +172,18 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 	}
 	if (key == 'd') {
-		posaviao.x += 5;
+		posaviao.x += 10;
 	}
 	if (key == 'a') {
-		posaviao.x -= 5;
+		posaviao.x -= 10;
+	}
+	if (key == 'w') {
+		yStep = 15;
+		ty -= yStep;
+		yStep = 10;
+	}
+	if (key == 's') {
+		ty -= yStep;
 	}
 	if (key == ' ') {
 		/*marcar possivel colisao*/
