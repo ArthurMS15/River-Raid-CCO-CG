@@ -22,6 +22,7 @@ int auxstart = 0;
 Item posaviao;
 Item postiro;
 Item posinfobaixo;
+Item posind;
 Item casa[10];
 Item comb[10];
 Item rua[2];
@@ -61,12 +62,16 @@ int main(int argc, char** argv) {
 void anima(int valor) {
 	if (auxstart == 1) {
 		posaviao.y += 1;
+		posind.x -= 1;
 	}
 	if (postiro.show) {
 		postiro.y += 30;
 	}
 	if (posaviao.y > posaviao.y + 250) {
 		postiro.show = 0;
+	}
+	if (posind.x < -250){
+		inicializar(posaviao);
 	}
 	if (ty < -4000) {
 		ty = ty;
@@ -112,6 +117,9 @@ void inicializar(Item item) {
 	posaviao.yaux = 25;
 	posinfobaixo.y = 0;
 	posinfobaixo.x = 0;
+	posind.y = 0;
+	posind.x = 250;
+
 	rua[0].x = 0;
 	rua[0].y = 2000;
 	rua[0].xaux = 250;
@@ -185,6 +193,19 @@ void keyboard(unsigned char key, int x, int y) {
 		postiro.y = posaviao.y + posaviao.yaux;
 		postiro.show = posaviao.show;
 	}
+}
+
+void indica(Item item){
+	int x = item.x;
+	int y = item.y;
+	glScalef(1, 1, 1);
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 0);
+	glVertex2f(x - 5, y - 190);
+	glVertex2f((x - 5), y - 220);
+	glVertex2f((x + 5), (y - 220));
+	glVertex2f(x + 5, (y - 190));
+	glEnd();
 }
 
 void helis(Item item) {
@@ -460,6 +481,23 @@ void infobaixo(Item item) {
 	glVertex2f(x, y - 280);
 	glVertex2f(x, y - 290);
 	glEnd();
+	/*F*/
+	glLineWidth(1000000000);
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x + 270, y - 300);
+	glVertex2f((x + 240), y - 300);
+	glEnd();
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x + 270, y - 315);
+	glVertex2f((x + 240), y - 315);
+	glEnd();
+	glBegin(GL_LINES);
+	glColor3f(1, 1, 1);
+	glVertex2f(x + 240, y - 330);
+	glVertex2f((x + 240), y - 300);
+	glEnd();
 	/*E*/
 	glLineWidth(1000000000);
 	glBegin(GL_LINES);
@@ -608,6 +646,7 @@ void desenhar() {
 	}
 	glPopMatrix();
 	infobaixo(posinfobaixo);
+	indica(posind);
 }
 
 void display() {
