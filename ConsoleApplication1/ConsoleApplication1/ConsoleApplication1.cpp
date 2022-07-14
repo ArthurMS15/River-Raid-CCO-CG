@@ -59,6 +59,24 @@ int main(int argc, char** argv) {
 	return(0);
 }
 
+int colisao(Item a, Item b){
+	float leftA = (a.x - a.xaux);
+	float leftB = (b.x - b.xaux);
+	float rightA = (a.x + a.xaux);
+	float rightB = (b.x + b.xaux);
+	float upA = (a.y + a.yaux);
+	float downB = (b.y - b.yaux);
+	float downA = (a.y - a.yaux);
+	float upB = (b.y + b.yaux);
+	if ((upA >= downB) && (downA <= upB) && (leftA < rightB) && (rightA > leftB)){
+		if (b.show){
+			return 1;
+		}
+	}
+	return 0;
+}
+
+
 void anima(int valor) {
 	if (auxstart == 1) {
 		posaviao.y += 1;
