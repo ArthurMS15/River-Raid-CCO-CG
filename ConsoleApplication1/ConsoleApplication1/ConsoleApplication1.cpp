@@ -57,18 +57,18 @@ int main(int argc, char** argv) {
 	return(0);
 }
 
-bool checkCollide(int x, int y, int oWidth, int oHeight, int xTwo, int yTwo, int oTwoWidth, int oTwoHeight) {
+bool checkCollide(double x, double y, double oWidth, double oHeight, double xTwo, double yTwo, double oTwoWidth, double oTwoHeight) {
 	// AABB 1
-	int x1Min = x;
-	int x1Max = x + oWidth;
-	int y1Max = y + oHeight;
-	int y1Min = y;
+	double x1Min = x;
+	double x1Max = x + oWidth;
+	double y1Max = y + oHeight;
+	double y1Min = y;
 
 	// AABB 2
-	int x2Min = xTwo;
-	int x2Max = xTwo + oTwoWidth;
-	int y2Max = yTwo + oTwoHeight;
-	int y2Min = yTwo;
+	double x2Min = xTwo;
+	double x2Max = xTwo + oTwoWidth;
+	double y2Max = yTwo + oTwoHeight;
+	double y2Min = yTwo;
 
 	// Collision tests
 	if (x1Max < x2Min || x1Min > x2Max) return false;
@@ -88,24 +88,20 @@ void anima(int valor) {
 	if (posaviao.y > posaviao.y + 250) {
 		postiro.show = 0;
 	}
-	if (ty < -3000) {
-		ty = ty;
-	}
-	else {
-		ty = ty - yStep;
-	}
+	ty = ty - yStep;
 	if (posind.x < -250) {
 		inicializar(posaviao);
 	}
 	if (posaviao.x > 180 || posaviao.x < -180) {
 		inicializar(posaviao);
 	}
-	for (int i = 0; i < 10; i++){
-		if (checkCollide(airplanePosition, fuels[i]) && fuels[i].visible){
+	for (int i = 0; i < 10; i++) {
+		if (checkCollide(posaviao.x, posaviao.y, 19, 26, comb[i].x, comb[i].y, 26, 51) && comb[i].show) {
 			posind.x = 150;
 			comb[i].show = 0;
 		}
 	}
+
 	glutPostRedisplay();
 	glutTimerFunc(50, anima, 1);
 }
@@ -203,7 +199,7 @@ void keyboard(unsigned char key, int x, int y) {
 		posaviao.y -= 5;
 	}
 	if (key == ' ') {
-		/*marcar possivel colisao*/
+		checkCollide(posaviao.x, posaviao.y, 19, 26, comb[0].x, comb[0].y, 26, 51);
 		postiro.x = posaviao.x;
 		postiro.y = posaviao.y;
 		postiro.show = posaviao.show;
