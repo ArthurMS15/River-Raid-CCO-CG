@@ -199,7 +199,7 @@ void indica(Item item) {
 	int y = item.y;
 	glScalef(1.0, 1.0, 1.0);
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 0);
+	glColor3f(1, 0, 0);
 	glVertex2f(x - 5, y - 280);
 	glVertex2f((x - 5), y - 310);
 	glVertex2f((x + 5), (y - 310));
