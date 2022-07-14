@@ -1,24 +1,3 @@
-bool checkCollide(int x, int y, int oWidth, int oHeight, int xTwo, int yTwo, int oTwoWidth, int oTwoHeight)
-{
-    // AABB 1
-    int x1Min = x;
-    int x1Max = x+oWidth;
-    int y1Max = y+oHeight;
-    int y1Min = y;
-
-    // AABB 2
-    int x2Min = xTwo;
-    int x2Max = xTwo+oTwoWidth;
-    int y2Max = yTwo+oTwoHeight;
-    int y2Min = yTwo;
-
-    // Collision tests
-    if( x1Max < x2Min || x1Min > x2Max ) return false;
-    if( y1Max < y2Min || y1Min > y2Max ) return false;
-
-    return true;
-}
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <GL/glut.h>
@@ -78,6 +57,26 @@ int main(int argc, char** argv) {
 	return(0);
 }
 
+bool checkCollide(int x, int y, int oWidth, int oHeight, int xTwo, int yTwo, int oTwoWidth, int oTwoHeight) {
+	// AABB 1
+	int x1Min = x;
+	int x1Max = x + oWidth;
+	int y1Max = y + oHeight;
+	int y1Min = y;
+
+	// AABB 2
+	int x2Min = xTwo;
+	int x2Max = xTwo + oTwoWidth;
+	int y2Max = yTwo + oTwoHeight;
+	int y2Min = yTwo;
+
+	// Collision tests
+	if (x1Max < x2Min || x1Min > x2Max) return false;
+	if (y1Max < y2Min || y1Min > y2Max) return false;
+
+	return true;
+}
+
 void anima(int valor) {
 	if (auxstart == 1) {
 		posaviao.y += 1;
@@ -92,14 +91,20 @@ void anima(int valor) {
 	if (ty < -3000) {
 		ty = ty;
 	}
-	if (posind.x < -250) {
-		inicializar(posaviao);
-	}
 	else {
 		ty = ty - yStep;
 	}
+	if (posind.x < -250) {
+		inicializar(posaviao);
+	}
 	if (posaviao.x > 180 || posaviao.x < -180) {
 		inicializar(posaviao);
+	}
+	for (int i = 0; i < 10; i++){
+		if (checkCollide(airplanePosition, fuels[i]) && fuels[i].visible){
+			posind.x = 150;
+			comb[i].show = 0;
+		}
 	}
 	glutPostRedisplay();
 	glutTimerFunc(50, anima, 1);
