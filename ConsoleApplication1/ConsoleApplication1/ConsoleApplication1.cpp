@@ -59,23 +59,6 @@ int main(int argc, char** argv) {
 	return(0);
 }
 
-int colisao(Item a, Item b){
-	float leftA = (a.x - a.xaux);
-	float leftB = (b.x - b.xaux);
-	float rightA = (a.x + a.xaux);
-	float rightB = (b.x + b.xaux);
-	float upA = (a.y + a.yaux);
-	float downB = (b.y - b.yaux);
-	float downA = (a.y - a.yaux);
-	float upB = (b.y + b.yaux);
-	if ((upA >= downB) && (downA <= upB) && (leftA < rightB) && (rightA > leftB)){
-		if (b.show){
-			return 1;
-		}
-	}
-	return 0;
-}
-
 void anima(int valor) {
 	if (auxstart == 1) {
 		posaviao.y += 1;
@@ -99,12 +82,6 @@ void anima(int valor) {
 	if (posaviao.x > 180 || posaviao.x < -180) {
 		inicializar(posaviao);
 	}
-	for (int i = 0; i < 10; i++){
-		if (colisao(posaviao, comb[i]) && comb[i].show){
-			posind.x = 150;
-			comb[i].show = 0;
-		}
-	}
 	glutPostRedisplay();
 	glutTimerFunc(50, anima, 1);
 }
@@ -114,8 +91,6 @@ void inicializar(Item item) {
 	casa[0].y = -50;
 	comb[0].x = 160;
 	comb[0].y = 0;
-	comb[0].xaux = 12;
-	comb[0].yaux = 22;
 	for (int i = 1; i < 10; i++) {
 		int aux = i - 1;
 		if (i % 2 == 0) {
@@ -131,8 +106,6 @@ void inicializar(Item item) {
 			comb[i].x = (rand() % 180);
 			comb[i].y = (comb[aux].y) + 500;
 		}
-		comb[i].xaux = 12;
-		comb[i].yaux = 22;
 	}
 	for (int i = 0; i < 10; i++) {
 		comb[i].show = true;
@@ -159,12 +132,8 @@ void inicializar(Item item) {
 	}
 	navio[0].x = 150;
 	navio[0].y = 10;
-	navio[0].xaux = 27;
-	navio[0].yaux = 17;
 	heli[0].x = -150;
 	heli[0].y = 10;
-	heli[0].xaux = 25;
-	heli[0].yaux = 15;
 	for (int i = 1; i < 20; i++) {
 		int aux = i - 1;
 		if (i % 2 == 0) {
@@ -179,10 +148,6 @@ void inicializar(Item item) {
 			heli[i].x = (rand() % 180) * -1;
 			heli[i].y = (heli[aux].y) + 350;
 		}
-		navio[i].xaux = 27;
-		navio[i].yaux = 17;
-		heli[i].xaux = 25;
-		heli[i].yaux = 15;
 	}
 	for (int i = 0; i < 20; i++) {
 		navio[i].show = true;
@@ -222,7 +187,7 @@ void keyboard(unsigned char key, int x, int y) {
 		posaviao.y -= 5;
 	}
 	if (key == ' ') {
-		colisao(posaviao, comb[0]);
+		/*marcar possivel colisao*/
 		postiro.x = posaviao.x;
 		postiro.y = posaviao.y + posaviao.yaux;
 		postiro.show = posaviao.show;
@@ -360,16 +325,16 @@ void ruas(Item item) {
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.0f);
-	glVertex2f(x - 350 - xaux, y - 210 - yaux);
-	glVertex2f(x + 350 + xaux, y - 210 - yaux);
-	glVertex2f(x + 350 + xaux, y - 140 + yaux);
-	glVertex2f(x - 350 - xaux, y - 140 + yaux);
+	glVertex2f(x - 350, y - 210);
+	glVertex2f(x + 350, y - 210);
+	glVertex2f(x + 350, y - 140);
+	glVertex2f(x - 350, y - 140);
 	glEnd();
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(x - 350 - xaux, y - 170);
-	glVertex2f(x - 350 - xaux, y - 180);
+	glVertex2f(x - 350, y - 170);
+	glVertex2f(x - 350, y - 180);
 	glVertex2f(x - 300, y - 180);
 	glVertex2f(x - 300, y - 170);
 	glEnd();
@@ -589,37 +554,14 @@ void lvlmap() {
 		}
 	}
 	for (int i = 0; i < 20; i++) {
-		if (colisao(postiro, heli[i])){
-			heli[i].show = 0;
-			postiro.show = 0;
-		}
-		if (colisao(postiro, navio[i])){
-			navio[i].show = 0;
-			postiro.show = 0;
-		}
 		if (navio[i].show) {
 			navios(navio[i]);
-		}
-		if (heli[i].show) {
 			helis(heli[i]);
-		}
-		if (colisao(posaviao, heli[i])){
-			inicializar(posaviao);
-		}
-		if (colisao(posaviao, navio[i])){
-			inicializar(posaviao);
 		}
 	}
 	for (int i = 0; i < 2; i++) {
-		if (colisao(postiro, rua[i])){
-			rua[i].show = 0;
-			postiro.show = 0;
-		}
 		if (rua[i].show) {
 			ruas(rua[i]);
-		}
-		if (colisao(posaviao, rua[i])){
-			inicializar(posaviao);
 		}
 	}
 }
