@@ -269,21 +269,19 @@ void helis(Item item) {
 void navios(Item item) {
 	int x = item.x;
 	int y = item.y;
-	int xaux = item.xaux;
-	int yaux = item.yaux;
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0.8, 0.8);
-	glVertex2f((x - xaux + 50), (y - yaux + 24));
-	glVertex2f((x + xaux - 50), (y - yaux + 24));
-	glVertex2f((x + xaux - 20), (y + yaux));
-	glVertex2f((x - xaux + 20), (y + yaux));
+	glVertex2f((x + 50), (y + 24));
+	glVertex2f((x - 50), (y + 24));
+	glVertex2f((x - 20), y );
+	glVertex2f((x + 20), y );
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0, 0.8);
-	glVertex2f((x - xaux), (y - yaux + 20));
-	glVertex2f((x + xaux + 5), (y - yaux + 20));
-	glVertex2f((x + xaux + 5), (y - yaux + 50));
-	glVertex2f((x - xaux), (y - yaux + 50));
+	glVertex2f((x, (y + 20));
+	glVertex2f((x + 5), (y + 20));
+	glVertex2f((x + 5), (y + 50));
+	glVertex2f((x, (y + 50));
 	glEnd();
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0, 1.0, 1.0);
@@ -308,8 +306,6 @@ void tiros(Item item) {
 void ruas(Item item) {
 	int x = item.x;
 	int y = item.y;
-	int xaux = item.xaux;
-	int yaux = item.yaux;
 	/*rua*/
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 0.0f, 0.0f);
@@ -371,40 +367,38 @@ void ruas(Item item) {
 void combustivel(Item item) {
 	int x = item.x;
 	int y = item.y;
-	int xaux = item.xaux;
-	int yaux = item.yaux;
 	glScalef(1, 1, 1);
 
 	glBegin(GL_QUADS);
 	glColor3f(1, 1, 1);
-	glVertex2f((x - xaux + 20), y + yaux - 5);
-	glVertex2f((x - xaux + 20), (y + yaux));
-	glVertex2f((x - xaux + 5), (y + yaux));
-	glVertex2f((x - xaux + 5), (y + yaux - 5));
+	glVertex2f((x + 20), y - 5);
+	glVertex2f((x + 20), (y ));
+	glVertex2f((x + 5), (y ));
+	glVertex2f((x + 5), (y - 5));
 	glEnd();
 
 	glBegin(GL_QUADS);
 	glColor3f(1, 1, 1);
-	glVertex2f((x - xaux + 25), y + yaux - 20);
-	glVertex2f((x - xaux + 25), y + yaux - 10);
-	glVertex2f((x - xaux), y + yaux - 10);
-	glVertex2f((x - xaux), y + yaux - 20);
+	glVertex2f((x  + 25), y - 20);
+	glVertex2f((x  + 25), y - 10);
+	glVertex2f((x , y - 10);
+	glVertex2f((x , y - 20);
 	glEnd();
 
 	glBegin(GL_QUADS);
 	glColor3f(1, 1, 1);
-	glVertex2f((x - xaux + 25), y + yaux - 35);
-	glVertex2f((x - xaux + 25), y + yaux - 25);
-	glVertex2f((x - xaux), y + yaux - 25);
-	glVertex2f((x - xaux), y + yaux - 35);
+	glVertex2f((x + 25), y - 35);
+	glVertex2f((x + 25), y - 25);
+	glVertex2f((x), y - 25);
+	glVertex2f((x), y - 35);
 	glEnd();
 
 	glBegin(GL_QUADS);
 	glColor3f(1, 1, 1);
-	glVertex2f((x - xaux + 25), y + yaux - 50);
-	glVertex2f((x - xaux + 25), y + yaux - 40);
-	glVertex2f((x - xaux), y + yaux - 40);
-	glVertex2f((x - xaux), y + yaux - 50);
+	glVertex2f((x  + 25), y - 50);
+	glVertex2f((x  + 25), y - 40);
+	glVertex2f((x ), y - 40);
+	glVertex2f((x ), y - 50);
 	glEnd();
 }
 
@@ -557,38 +551,36 @@ void lvlmap() {
 void aviao(Item item) {
 	int x = item.x;
 	int y = item.y;
-	int xaux = item.xaux;
-	int yaux = item.yaux;
 	glColor3f(1, 1, 0);
 	glBegin(GL_POLYGON);
-	glVertex2f(x - 3, y - yaux + 5);
-	glVertex2f(x - 3, y + yaux);
-	glVertex2f(x + 3, y + yaux);
-	glVertex2f(x + 3, y - yaux + 5);
+	glVertex2f(x - 3, y + 5);
+	glVertex2f(x - 3, y);
+	glVertex2f(x + 3, y);
+	glVertex2f(x + 3, y + 5);
 	glEnd();
 	glBegin(GL_POLYGON);
-	glVertex2f((x - xaux), y);
-	glVertex2f((x - xaux), y + 8);
+	glVertex2f(x , y);
+	glVertex2f(x , y + 8);
 	glVertex2f(x, y + 16);
 	glVertex2f(x, y + 8);
 	glEnd();
 	glBegin(GL_POLYGON);
-	glVertex2f((x + xaux), y);
-	glVertex2f((x + xaux), y + 8);
+	glVertex2f(x , y);
+	glVertex2f(x , y + 8);
 	glVertex2f(x, y + 16);
 	glVertex2f(x, y + 8);
 	glEnd();
 	glBegin(GL_POLYGON);
-	glVertex2f((x - xaux + 5), y - yaux);
-	glVertex2f((x - xaux + 5), y - yaux + 5);
-	glVertex2f(x, y - yaux + 10);
-	glVertex2f(x, y - yaux + 5);
+	glVertex2f((x + 5), y);
+	glVertex2f((x + 5), y + 5);
+	glVertex2f(x, y + 10);
+	glVertex2f(x, y + 5);
 	glEnd();
 	glBegin(GL_POLYGON);
-	glVertex2f((x + xaux - 5), y - yaux);
-	glVertex2f((x + xaux - 5), y - yaux + 5);
-	glVertex2f(x, y - yaux + 10);
-	glVertex2f(x, y - yaux + 5);
+	glVertex2f((x - 5), y );
+	glVertex2f((x - 5), y + 5);
+	glVertex2f(x, y + 10);
+	glVertex2f(x, y + 5);
 	glEnd();
 }
 
