@@ -11,9 +11,7 @@
 
 typedef struct sItem {
 	double x;
-	double xaux;
 	double y;
-	double yaux;
 	bool show = true;
 } Item;
 
@@ -77,7 +75,7 @@ void anima(int valor) {
 		inicializar(posaviao);
 	}
 	else {
-		ty -= yStep;
+		
 	}
 	if (posaviao.x > 180 || posaviao.x < -180) {
 		inicializar(posaviao);
@@ -113,20 +111,14 @@ void inicializar(Item item) {
 	postiro.show = 0;
 	posaviao.y = -100;
 	posaviao.x = 0;
-	posaviao.xaux = 15;
-	posaviao.yaux = 25;
 	posinfobaixo.y = 0;
 	posinfobaixo.x = 0;
 	posind.y = 0;
 	posind.x = 250;
 	rua[0].x = 0;
 	rua[0].y = 2000;
-	rua[0].xaux = 250;
-	rua[0].yaux = 30;
 	rua[1].x = 0;
 	rua[1].y = 4100;
-	rua[1].xaux = 250;
-	rua[1].yaux = 30;
 	for (int i = 0; i < 2; i++) {
 		rua[i].show = true;
 	}
@@ -164,8 +156,6 @@ void keyboard(unsigned char key, int x, int y) {
 	case '\x0D':
 		posaviao.x = 0;
 		posaviao.y = 0;
-		posaviao.xaux = 15;
-		posaviao.yaux = 25;
 		auxstart = 1;
 		inicializar(posaviao);
 		text = " ";
@@ -211,70 +201,68 @@ void indica(Item item) {
 void helis(Item item) {
 	int x = item.x;
 	int y = item.y;
-	int xaux = item.xaux;
-	int yaux = item.yaux;
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0.8, 0.8);
-	glVertex2f((x - xaux + 20), (y - yaux + 30));
-	glVertex2f((x + xaux - 10), (y - yaux + 30));
-	glVertex2f((x + xaux - 10), (y + yaux + 10));
-	glVertex2f((x - xaux + 20), (y + yaux + 10));
+	glVertex2f((x + 20), (y + 30));
+	glVertex2f((x - 10), (y + 30));
+	glVertex2f((x - 10), (y + 10));
+	glVertex2f((x + 20), (y + 10));
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0, 0.8);
-	glVertex2f((x - xaux + 4), (y - yaux + 10));
-	glVertex2f((x + xaux + 8), (y - yaux + 10));
-	glVertex2f((x + xaux + 8), (y - yaux));
-	glVertex2f((x - xaux + 4), (y - yaux));
+	glVertex2f((x + 4), (y + 10));
+	glVertex2f((x + 8), (y + 10));
+	glVertex2f((x + 8), y);
+	glVertex2f((x + 4), y);
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0, 0.8);
-	glVertex2f((x - xaux), (y - yaux - 5));
-	glVertex2f((x + xaux + 10), (y - yaux - 5));
-	glVertex2f((x + xaux + 10), (y - yaux));
-	glVertex2f((x - xaux), (y - yaux));
+	glVertex2f((x ), (y - 5));
+	glVertex2f((x + 10), (y - 5));
+	glVertex2f((x + 10), y );
+	glVertex2f((x), (y));
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0.8, 0.8);
-	glVertex2f((x - xaux + 20), (y - yaux + 30));
-	glVertex2f((x - xaux + 20), (y + yaux + 10));
-	glVertex2f((x - xaux + 30), (y + yaux + 15));
-	glVertex2f((x - xaux + 30), (y + yaux + 25));
+	glVertex2f((x + 20), (y + 30));
+	glVertex2f((x + 20), (y + 10));
+	glVertex2f((x + 30), (y + 15));
+	glVertex2f((x + 30), (y + 25));
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0.8, 0.8);
-	glVertex2f((x - xaux - 10), (y - yaux + 30));
-	glVertex2f((x - xaux - 10), (y + yaux + 10));
-	glVertex2f((x - xaux - 20), (y + yaux + 15));
-	glVertex2f((x - xaux - 20), (y + yaux + 25));
+	glVertex2f((x - 10), (y + 30));
+	glVertex2f((x - 10), (y + 10));
+	glVertex2f((x - 20), (y + 15));
+	glVertex2f((x - 20), (y + 25));
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0.8, 0.8);
-	glVertex2f((x - xaux - 20), (y - yaux + 20));
-	glVertex2f((x + xaux - 30), (y - yaux + 20));
-	glVertex2f((x + xaux - 30), (y + yaux + 12.5));
-	glVertex2f((x - xaux - 20), (y + yaux + 12.5));
+	glVertex2f((x - 20), (y + 20));
+	glVertex2f((x - 30), (y + 20));
+	glVertex2f((x - 30), (y + 12.5));
+	glVertex2f((x - 20), (y + 12.5));
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.8, 0, 0.8);
-	glVertex2f((x - xaux), (y - yaux + 30));
-	glVertex2f((x + xaux + 5), (y - yaux + 30));
-	glVertex2f((x + xaux + 5), (y - yaux + 50));
-	glVertex2f((x - xaux), (y - yaux + 50));
+	glVertex2f(x, (y + 30));
+	glVertex2f(x + 5), (y + 30));
+	glVertex2f(x + 5), (y + 50));
+	glVertex2f(x, (y + 50));
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(1.0, 1.0, 1.0);
-	glVertex2f(x, y - yaux + 55);
-	glVertex2f(x, y - yaux + 50);
-	glVertex2f(x - 20, y - yaux + 50);
-	glVertex2f(x - 20, y - yaux + 55);
+	glVertex2f(x, y + 55);
+	glVertex2f(x, y + 50);
+	glVertex2f(x - 20, y + 50);
+	glVertex2f(x - 20, y + 55);
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(1.0, 1.0, 1.0);
-	glVertex2f(x + 5, y - yaux + 55);
-	glVertex2f(x + 5, y - yaux + 50);
-	glVertex2f(x + 25, y - yaux + 50);
-	glVertex2f(x + 25, y - yaux + 55);
+	glVertex2f(x + 5, y + 55);
+	glVertex2f(x + 5, y + 50);
+	glVertex2f(x + 25, y + 50);
+	glVertex2f(x + 25, y + 55);
 	glEnd();
 }
 
