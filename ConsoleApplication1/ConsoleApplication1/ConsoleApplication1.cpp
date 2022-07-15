@@ -79,7 +79,6 @@ bool checkCollide(double x, double y, double oWidth, double oHeight, double xTwo
 
 void anima(int valor) {
 	if (auxstart == 1) {
-		posaviao.y += 1;
 		posind.x -= 5;
 	}
 	if (postiro.show) {
@@ -96,7 +95,12 @@ void anima(int valor) {
 		inicializar(posaviao);
 	}
 	for (int i = 0; i < 10; i++) {
-		if (checkCollide(posaviao.x, posaviao.y, 19, 26, combs[i].x, combs[i].y, 26, 51) && combs[i].show) {
+		printf("AVIAO X: %.f\n", posaviao.x);
+		printf("AVIAO Y: %.f\n", posaviao.y);
+		printf("CMBS X: %.f\n", combs[1].x);
+		printf("CMBS Y: %.f\n", combs[1].y);
+		printf("AVIAO Y: %.f\n", posaviao.y);
+		if (checkCollide(posaviao.x, (posaviao.y + 500), 19, 26, combs[i].x, combs[i].y, 26, 51) && combs[i].show) {
 			posind.x = 150;
 			combs[i].show = 0;
 		}
@@ -131,7 +135,7 @@ void inicializar(Item item) {
 		combs[i].show = true;
 	}
 	postiro.show = 0;
-	posaviao.y = -100;
+	posaviao.y = 0;
 	posaviao.x = 0;
 	posinfobaixo.y = 0;
 	posinfobaixo.x = 0;
