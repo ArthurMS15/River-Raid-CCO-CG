@@ -26,7 +26,7 @@ void inicializar(Item posaviao);
 void ajuiniciarela();
 std::string text = "RIVER RAID";
 std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
-Item combs[8];
+Item combs[5];
 Item helis[15];
 Item navios[15];
 Item ruas[2];
@@ -43,6 +43,27 @@ int main(int argc, char** argv) {
     glutTimerFunc(50, animate, 1);
     glutMainLoop();
     return EXIT_SUCCESS;
+}
+
+
+bool checkCollide(int x, int y, int oWidth, int oHeight, int xTwo, int yTwo, int oTwoWidth, int oTwoHeight) {
+    // AABB 1
+    int x1Min = x;
+    int x1Max = x + oWidth;
+    int y1Max = y + oHeight;
+    int y1Min = y;
+
+    // AABB 2
+    int x2Min = xTwo;
+    int x2Max = xTwo + oTwoWidth;
+    int y2Max = yTwo + oTwoHeight;
+    int y2Min = yTwo;
+
+    // Collision tests
+    if (x1Max < x2Min || x1Min > x2Max) return false;
+    if (y1Max < y2Min || y1Min > y2Max) return false;
+
+    return true;
 }
 
 void desenharText(const char* text, int length, int x, int y) {
@@ -81,10 +102,8 @@ void inicializar(Item Item) {
     posinfobaixo.y = 0;
     postela.x = janela_largura / 2;
     posaviao.x = 0;
-    posaviao.xaux = 15;
-    posaviao.yaux = 25;
     posinfobaixo.x = 0;
-    posind.x = 150;
+    posind.x = 250;
     postiro.show = 0;
     ruas[0].x = 0;
     ruas[0].y = 1500;
@@ -100,37 +119,17 @@ void inicializar(Item Item) {
     //////////////////////////
     combs[0].x = -70;
     combs[0].y = 50;
-    combs[0].xaux = 12;
-    combs[0].yaux = 22;
     combs[1].x = 0;
     combs[1].y = 600;
-    combs[1].xaux = 12;
-    combs[1].yaux = 22;
-    combs[2].x = 170;
-    combs[2].y = 600;
-    combs[2].xaux = 12;
-    combs[2].yaux = 22;
-    combs[3].x = -100;
-    combs[3].y = 800;
-    combs[3].xaux = 12;
-    combs[3].yaux = 22;
-    combs[4].x = 50;
-    combs[4].y = 1150;
-    combs[4].xaux = 12;
-    combs[4].yaux = 22;
-    combs[5].x = 120;
-    combs[5].y = 1850;
-    combs[5].xaux = 12;
-    combs[5].yaux = 22;
-    combs[6].x = 0;
-    combs[6].y = 2300;
-    combs[6].xaux = 12;
-    combs[6].yaux = 22;
-    combs[7].x = -120;
-    combs[7].y = 2600;
-    combs[7].xaux = 12;
-    combs[7].yaux = 22;
-    for (int i = 0; i < 8; i++) {
+    combs[2].x = 180;
+    combs[2].y = 1200;
+    combs[3].x = -120;
+    combs[3].y = 1800;
+    combs[4].x = -150;
+    combs[4].y = 2400;
+    for (int i = 0; i < 5; i++) {
+        combs[i].xaux = 12;
+        combs[i].yaux = 22;
         combs[i].show = 1;
     }
     ////////////////////////
@@ -188,10 +187,6 @@ void animate(int value) {
         posind.y += 4;
         posind.x -= 1;
     }
-    if (ruas[1].show == 0) {
-        postela.x = 3000;
-        postela.y = janela_altura / 2;
-    }
     if (postiro.show) {
         postiro.y += 30;
     }
@@ -201,12 +196,12 @@ void animate(int value) {
     if (posaviao.x > 180 || posaviao.x < -180) {
         inicializar(posaviao);
     }
-    if (posind.x < -150) {
+    if (posind.x < -250) {
         inicializar(posaviao);
     }
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 5; i++) {
         if (colisao(posaviao, combs[i]) && combs[i].show) {
-            posind.x = 150;
+            posind.x = 250;
             combs[i].show = 0;
         }
     }
@@ -222,8 +217,6 @@ void keyboard(unsigned char key, int x, int y) {
     case '\x0D':
         posaviao.x = 0;
         posaviao.y = 0;
-        posaviao.xaux = 15;
-        posaviao.yaux = 25;
         inicializar(posaviao);
         text = " ";
         desenharText(text.data(), text.size(), 350, 400);
@@ -253,8 +246,9 @@ void keyboard(unsigned char key, int x, int y) {
 }
 
 void resize(GLsizei w, GLsizei h) {
-    if (h == 0)
+    if (h == 0) {
         h = 1;
+    }
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -280,19 +274,16 @@ void mapa() {
 void aviao(Item Item) {
     int x = Item.x;
     int y = Item.y;
-    int xaux = Item.xaux;
-    int yaux = Item.yaux;
-    glScalef(1, 1, 1);
     glColor3f(1, 1, 1);
     glBegin(GL_POLYGON);
-    glVertex2f((x - xaux), y);
-    glVertex2f((x - xaux), y + 8);
+    glVertex2f((x - 15), y);
+    glVertex2f((x - 15), y + 8);
     glVertex2f(x, y + 16);
     glVertex2f(x, y + 8);
     glEnd();
     glBegin(GL_POLYGON);
-    glVertex2f((x + xaux), y);
-    glVertex2f((x + xaux), y + 8);
+    glVertex2f((x + 15), y);
+    glVertex2f((x + 15), y + 8);
     glVertex2f(x, y + 16);
     glVertex2f(x, y + 8);
     glEnd();
@@ -302,34 +293,26 @@ void comb(Item Item) {
     int y = Item.y;
     int xaux = Item.xaux;
     int yaux = Item.yaux;
-    glScalef(1, 1, 1);
+    glBegin(GL_QUADS);
+    glColor3f(1, 0, 0);
+    glVertex2f(x - xaux, (y - yaux + 5));
+    glVertex2f((x + xaux), (y - yaux + 5));
+    glVertex2f((x + xaux), (y - yaux + 10));
+    glVertex2f(x - xaux, (y - yaux + 10));
+    glEnd();
     glBegin(GL_QUADS);
     glColor3f(1, 1, 1);
     glVertex2f(x - xaux, (y - yaux + 10));
     glVertex2f((x + xaux), (y - yaux + 10));
-    glVertex2f((x + xaux), (y - yaux + 20));
-    glVertex2f(x - xaux, (y - yaux + 20));
+    glVertex2f((x + xaux), (y - yaux + 15));
+    glVertex2f(x - xaux, (y - yaux + 15));
     glEnd();
     glBegin(GL_QUADS);
     glColor3f(1, 0, 0);
-    glVertex2f(x - xaux, (y - yaux + 20));
-    glVertex2f((x + xaux), (y - yaux + 20));
-    glVertex2f((x + xaux), (y - yaux + 30));
-    glVertex2f(x - xaux, (y - yaux + 30));
-    glEnd();
-    glBegin(GL_QUADS);
-    glColor3f(1, 1, 1);
-    glVertex2f(x - xaux, (y - yaux + 30));
-    glVertex2f((x + xaux), (y - yaux + 30));
-    glVertex2f((x + xaux), (y + yaux - 5));
-    glVertex2f(x - xaux, (y + yaux - 5));
-    glEnd();
-    glBegin(GL_QUADS);
-    glColor3f(1, 1, 1);
-    glVertex2f((x - xaux + 20), y + yaux - 5);
-    glVertex2f((x - xaux + 20), (y + yaux));
-    glVertex2f((x - xaux + 5), (y + yaux));
-    glVertex2f((x - xaux + 5), (y + yaux - 5));
+    glVertex2f(x - xaux, (y - yaux + 15));
+    glVertex2f((x + xaux), (y - yaux + 15));
+    glVertex2f((x + xaux), (y + yaux - 20));
+    glVertex2f(x - xaux, (y + yaux - 20));
     glEnd();
 }
 void rua(Item Item) {
@@ -337,7 +320,6 @@ void rua(Item Item) {
     int y = Item.y;
     int xaux = Item.xaux;
     int yaux = Item.yaux;
-    glScalef(1, 1, 1);
     glBegin(GL_QUADS);
     glColor3f(0, 0, 0);
     glVertex2f(x - xaux - 1500, y - yaux);
@@ -401,17 +383,17 @@ void heli(Item Item) {
     int yaux = Item.yaux;
     glBegin(GL_QUADS);
     glColor3f(0, 0, 0);
-    glVertex2f((x - 10), y - yaux);
-    glVertex2f((x - 10), y - yaux + 30);
-    glVertex2f((x + 10), y - yaux + 30);
-    glVertex2f((x + 10), (y - yaux));
+    glVertex2f((x - 2), y - yaux + 10);
+    glVertex2f((x - 2), y + 20);
+    glVertex2f((x + 2), y + 20);
+    glVertex2f((x + 2), (y - yaux + 10));
     glEnd();
     glBegin(GL_QUADS);
     glColor3f(0, 0, 0);
-    glVertex2f((x - 2), y - yaux + 3);
-    glVertex2f((x - 2), y + 5);
-    glVertex2f((x + 2), y + 5);
-    glVertex2f((x + 2), (y - yaux + 3));
+    glVertex2f((x - 10), y - yaux + 30);
+    glVertex2f((x - 10), y - yaux + 32);
+    glVertex2f((x + 10), y - yaux + 32);
+    glVertex2f((x + 10), (y - yaux + 30));
     glEnd();
     glBegin(GL_QUADS);
     glColor3f(1, 0, 1);
@@ -501,7 +483,6 @@ void infobaixo(Item item) {
 void indica(Item item) {
     int x = item.x;
     int y = item.y;
-    glScalef(1.0, 1.0, 1.0);
     glBegin(GL_QUADS);
     glColor3f(1, 0, 0);
     glVertex2f(x - 5, y - 280);
@@ -514,7 +495,6 @@ void indica(Item item) {
 void tiro(Item Item) {
     int x = Item.x;
     int y = Item.y;
-    glScalef(1, 1, 1);
     glBegin(GL_TRIANGLES);
     glColor3f(1, 1, 0);
     glVertex2f(x - 5, y - 20);
@@ -536,11 +516,11 @@ void desenhar() {
         if (ruas[i].show) {
             rua(ruas[i]);
         }
-        if (colisao(posaviao, ruas[i])) {
+        if (checkCollide(posaviao.x, posaviao.y, 31, 9, ruas[i].x, ruas[i].y, 501, 30)) {
             inicializar(posaviao);
         }
     }
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 5; i++) {
         if (combs[i].show) {
             comb(combs[i]);
         }
@@ -553,8 +533,7 @@ void desenhar() {
         if (helis[i].show) {
             heli(helis[i]);
         }
-        if (colisao(posaviao, helis[i]))
-        {
+        if (colisao(posaviao, helis[i])) {
             inicializar(posaviao);
         }
     }
