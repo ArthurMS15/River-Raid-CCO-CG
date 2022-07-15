@@ -95,12 +95,13 @@ void anima(int valor) {
 		inicializar(posaviao);
 	}
 	for (int i = 0; i < 10; i++) {
+		int aux = 500 * i;
 		printf("AVIAO X: %.f\n", posaviao.x);
 		printf("AVIAO Y: %.f\n", posaviao.y);
 		printf("CMBS X: %.f\n", combs[1].x);
 		printf("CMBS Y: %.f\n", combs[1].y);
 		printf("AVIAO Y: %.f\n", posaviao.y);
-		if (checkCollide(posaviao.x, (posaviao.y + 500), 19, 26, combs[i].x, combs[i].y, 26, 51) && combs[i].show) {
+		if (checkCollide(posaviao.x, (posaviao.y + aux), 19, 26, combs[i].x, combs[i].y, 26, 51) && combs[i].show) {
 			posind.x = 150;
 			combs[i].show = 0;
 		}
