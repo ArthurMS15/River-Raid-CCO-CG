@@ -22,7 +22,7 @@ Item postiro;
 Item posinfobaixo;
 Item posind;
 Item casa[10];
-Item comb[10];
+Item combs[10];
 Item rua[2];
 Item navio[20];
 Item heli[20];
@@ -96,9 +96,9 @@ void anima(int valor) {
 		inicializar(posaviao);
 	}
 	for (int i = 0; i < 10; i++) {
-		if (checkCollide(posaviao.x, posaviao.y, 19, 26, comb[i].x, comb[i].y, 26, 51) && comb[i].show) {
+		if (checkCollide(posaviao.x, posaviao.y, 19, 26, combs[i].x, combs[i].y, 26, 51) && combs[i].show) {
 			posind.x = 150;
-			comb[i].show = 0;
+			combs[i].show = 0;
 		}
 	}
 
@@ -109,26 +109,26 @@ void anima(int valor) {
 void inicializar(Item item) {
 	casa[0].x = -310;
 	casa[0].y = -50;
-	comb[0].x = 160;
-	comb[0].y = 0;
+	combs[0].x = 160;
+	combs[0].y = 0;
 	for (int i = 1; i < 10; i++) {
 		int aux = i - 1;
 		if (i % 2 == 0) {
 			casa[i].x = 270;
 			casa[i].y = (casa[aux].y) + 450;
-			comb[i].x = (rand() % 180) * -1;
-			comb[i].y = (comb[aux].y) + 500;
+			combs[i].x = (rand() % 180) * -1;
+			combs[i].y = (combs[aux].y) + 500;
 
 		}
 		else {
 			casa[i].x = -310;
 			casa[i].y = (casa[aux].y) + 450;
-			comb[i].x = (rand() % 180);
-			comb[i].y = (comb[aux].y) + 500;
+			combs[i].x = (rand() % 180);
+			combs[i].y = (combs[aux].y) + 500;
 		}
 	}
 	for (int i = 0; i < 10; i++) {
-		comb[i].show = true;
+		combs[i].show = true;
 	}
 	postiro.show = 0;
 	posaviao.y = -100;
@@ -199,7 +199,7 @@ void keyboard(unsigned char key, int x, int y) {
 		posaviao.y -= 5;
 	}
 	if (key == ' ') {
-		checkCollide(posaviao.x, posaviao.y, 19, 26, comb[0].x, comb[0].y, 26, 51);
+		checkCollide(posaviao.x, posaviao.y, 19, 26, combs[0].x, combs[0].y, 26, 51);
 		postiro.x = posaviao.x;
 		postiro.y = posaviao.y;
 		postiro.show = posaviao.show;
@@ -386,7 +386,7 @@ void ruas(Item item) {
 	glEnd();
 }
 
-void combustivel(Item item) {
+void combsustivel(Item item) {
 	int x = item.x;
 	int y = item.y;
 	glScalef(1, 1, 1);
@@ -553,8 +553,8 @@ void lvlmap() {
 		casaarvore(casa[i].x, casa[i].y);
 	}
 	for (int i = 0; i < 10; i++) {
-		if (comb[i].show) {
-			combustivel(comb[i]);
+		if (combs[i].show) {
+			combsustivel(combs[i]);
 		}
 	}
 	for (int i = 0; i < 20; i++) {
