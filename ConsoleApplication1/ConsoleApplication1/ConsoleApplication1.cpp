@@ -23,15 +23,13 @@ void display(void);
 void arrow_keys(int tecla, int x, int y);
 void animate(int value);
 void inicializar(Item posaviao);
-void ajuiniciarela();
 std::string text = "RIVER RAID";
 std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
-Item combs[5];
+Item combs[15];
 Item helis[15];
 Item navios[15];
 Item ruas[2];
 int main(int argc, char** argv) {
-    ajuiniciarela();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(janela_largura, janela_altura);
@@ -43,27 +41,6 @@ int main(int argc, char** argv) {
     glutTimerFunc(50, animate, 1);
     glutMainLoop();
     return EXIT_SUCCESS;
-}
-
-
-bool checkCollide(int x, int y, int oWidth, int oHeight, int xTwo, int yTwo, int oTwoWidth, int oTwoHeight) {
-    // AABB 1
-    int x1Min = x;
-    int x1Max = x + oWidth;
-    int y1Max = y + oHeight;
-    int y1Min = y;
-
-    // AABB 2
-    int x2Min = xTwo;
-    int x2Max = xTwo + oTwoWidth;
-    int y2Max = yTwo + oTwoHeight;
-    int y2Min = yTwo;
-
-    // Collision tests
-    if (x1Max < x2Min || x1Min > x2Max) return false;
-    if (y1Max < y2Min || y1Min > y2Max) return false;
-
-    return true;
 }
 
 void desenharText(const char* text, int length, int x, int y) {
@@ -91,10 +68,7 @@ void titulo(int x, int y) {
     desenharText(text2.data(), text2.size(), 150, 300);
 }
 /*ajuste do plano cartesiano*/
-void ajuiniciarela() {
-    postela.x = 750;
-    postela.y = janela_altura / 2;
-}
+
 void inicializar(Item Item) {
     postela.y = janela_altura / 2;
     posaviao.y = -120;
@@ -117,17 +91,9 @@ void inicializar(Item Item) {
         ruas[i].show = 1;
     }
     //////////////////////////
-    combs[0].x = -70;
-    combs[0].y = 50;
-    combs[1].x = 0;
-    combs[1].y = 600;
-    combs[2].x = 180;
-    combs[2].y = 1200;
-    combs[3].x = -120;
-    combs[3].y = 1800;
-    combs[4].x = -150;
-    combs[4].y = 2400;
-    for (int i = 0; i < 5; i++) {
+    combs[0].x = -100;
+    combs[0].y = 20;
+    for (int i = 0; i < 15; i++) {
         combs[i].xaux = 12;
         combs[i].yaux = 22;
         combs[i].show = 1;
@@ -144,12 +110,16 @@ void inicializar(Item Item) {
             helis[i].y = (helis[aux].y) + 200;
             navios[i].x = (rand() % 180);
             navios[i].y = (navios[aux].y) + 200;
+            combs[i].x = (rand() % 180);
+            combs[i].y = (combs[aux].y) + 300;
         }
         else {
             helis[i].x = (rand() % 180) * -1;
             helis[i].y = (helis[aux].y) + 200;
             navios[i].x = (rand() % 180);
             navios[i].y = (navios[aux].y) + 200;
+            combs[i].x = (rand() % 180);
+            combs[i].y = (combs[aux].y) + 300;
         }
         helis[i].xaux = 25;
         helis[i].yaux = 15;
@@ -181,10 +151,10 @@ int colisao(Item a, Item b) {
 }
 void animate(int value) {
     if (iniciar == 1) {
-        posaviao.y += 4;
-        postela.y += -4;
-        posinfobaixo.y += 4;
-        posind.y += 4;
+        posaviao.y += 5;
+        postela.y += -5;
+        posinfobaixo.y += 5;
+        posind.y += 5;
         posind.x -= 1;
     }
     if (postiro.show) {
@@ -406,8 +376,15 @@ void heli(Item Item) {
     glColor3f(1, 0, 1);
     glVertex2f((x - xaux + 15), y - 5);
     glVertex2f((x - xaux + 15), (y + 5));
-    glVertex2f((x + xaux - 10), (y + 5));
+    glVertex2f((x + xaux + 10), (y + 5));
     glVertex2f((x + xaux - 10), y - 5);
+    glEnd();
+    glBegin(GL_QUADS);
+    glColor3f(1, 0, 1);
+    glVertex2f((x - xaux), y - yaux + 10);
+    glVertex2f((x - xaux), y + 15);
+    glVertex2f((x - xaux - 5), y + 15);
+    glVertex2f((x - xaux - 5), (y - yaux + 10));
     glEnd();
 
 }
@@ -516,7 +493,7 @@ void desenhar() {
         if (ruas[i].show) {
             rua(ruas[i]);
         }
-        if (checkCollide(posaviao.x, posaviao.y, 31, 9, ruas[i].x, ruas[i].y, 501, 30)) {
+        if (colisao(posaviao, ruas[i])) {
             inicializar(posaviao);
         }
     }
