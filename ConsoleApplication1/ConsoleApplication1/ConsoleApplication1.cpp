@@ -24,7 +24,7 @@ void arrow_keys(int tecla, int x, int y);
 void animate(int value);
 void inicializar(Item posaviao);
 void ajuiniciarela();
-std::string text = "mapa RAID";
+std::string text = "RIVER RAID";
 std::string text2 = "Aperte ENTER para comecar ou ESC para sair";
 Item combs[8];
 Item helis[15];
@@ -195,7 +195,7 @@ void animate(int value) {
     if (postiro.show) {
         postiro.y += 30;
     }
-    if (postiro.y > posaviao.y + 250) {
+    if (postiro.y > posaviao.y + 400) {
         postiro.show = 0;
     }
     if (posaviao.x > 180 || posaviao.x < -180) {
@@ -399,19 +399,19 @@ void heli(Item Item) {
     int y = Item.y;
     int xaux = Item.xaux;
     int yaux = Item.yaux;
-    glBegin(GL_POLYGON);
+    glBegin(GL_QUADS);
     glColor3f(0, 0, 0);
     glVertex2f((x - 10), y - yaux);
     glVertex2f((x - 10), y - yaux + 30);
     glVertex2f((x + 10), y - yaux + 30);
     glVertex2f((x + 10), (y - yaux));
     glEnd();
-    glBegin(GL_POLYGON);
+    glBegin(GL_QUADS);
     glColor3f(0, 0, 0);
-    glVertex2f((x - 2), y - yaux + 30);
+    glVertex2f((x - 2), y - yaux + 3);
     glVertex2f((x - 2), y + 5);
     glVertex2f((x + 2), y + 5);
-    glVertex2f((x + 2), (y - yaux + 30));
+    glVertex2f((x + 2), (y - yaux + 3));
     glEnd();
     glBegin(GL_QUADS);
     glColor3f(1, 0, 1);
@@ -515,12 +515,11 @@ void tiro(Item Item) {
     int x = Item.x;
     int y = Item.y;
     glScalef(1, 1, 1);
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
     glColor3f(1, 1, 0);
-    glVertex2f(x - 1, y - 20);
-    glVertex2f((x - 1), y - 30);
-    glVertex2f((x + 1), (y - 30));
-    glVertex2f(x + 1, (y - 20));
+    glVertex2f(x - 5, y - 20);
+    glVertex2f((x), y - 10);
+    glVertex2f((x + 5), (y - 20));
     glEnd();
 }
 void desenhar() {
@@ -578,7 +577,7 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glClearColor(0.2f, 0.65f, 0.33f, 0.0f);
+    glClearColor(0.0f, 1.00f, 0.0f, 0.0f);
     glTranslatef(postela.x, postela.y, 0.0f);
     desenhar();
     titulo(-400, 300);
